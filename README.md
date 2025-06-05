@@ -4,8 +4,7 @@ ____________________________________________________________________________
 |--------------------------------------|-----------------------------------|
 | Antenor,                             |                                   |
 | Cayo, Pedro Dardo Ramón Cayo         | PedroDardoRamonCayo               |
-| Torres,                              |                                   |
-| Torres, Pablo Gabriel                |     eneporene                     |
-| Torres,                              |                                   |
+| Torres, Pablo Gabriel                | eneporene                         |
+| Torres, Cintia Cristina              | Chris213-boop                     |
 | Vargas,                              |                                   |
 |______________________________________|___________________________________|
