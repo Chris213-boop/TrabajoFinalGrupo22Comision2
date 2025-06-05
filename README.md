@@ -3,7 +3,8 @@ ____________________________________________________________________________
 | **INTEGRANTES DEL GRUPO 22**         | **Nombres de usuario Github**     |
 |--------------------------------------|-----------------------------------|
 | Antenor,                             |                                   |
-| Cayo,                                |                                   |
+| Cayo, Pedro Dardo Ramón Cayo         | PedroDardoRamonCayo               |
+| Torres,                              |                                   |
 | Torres, Pablo Gabriel                |     eneporene                     |
 | Torres,                              |                                   |
 | Vargas,                              |                                   |
