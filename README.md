@@ -6,5 +6,5 @@ ____________________________________________________________________________
 | Cayo, Pedro Dardo Ramón Cayo         | PedroDardoRamonCayo               |
 | Torres, Pablo Gabriel                | eneporene                         |
 | Torres, Cintia Cristina              | Chris213-boop                     |
-| Vargas,                              |                                   |
+| Vargas, Ana Lucia                    | luciasoraide                      |
 |______________________________________|___________________________________|
