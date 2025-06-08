@@ -1,0 +1,1 @@
+// Componente reutilizable para crear nuevos productos o editar existentes con campos precargados según su ID.
