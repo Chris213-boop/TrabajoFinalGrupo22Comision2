@@ -1,1 +1,0 @@
-// Componente para mostrar cada producto en una tarjeta.
