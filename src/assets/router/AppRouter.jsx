@@ -60,3 +60,5 @@ function Rutas() {
         </Container>
     );
 }
+
+export default Rutas;
