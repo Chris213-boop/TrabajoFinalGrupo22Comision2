@@ -4,6 +4,8 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Container } from 'react-bootstrap';
 import Home from '../pages/Home';
+import Nosotros from '../pages/Nosotros';
+
 
 function Rutas() {
     return (
@@ -14,11 +16,13 @@ function Rutas() {
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav
-                            className="me-auto my-2 my-lg-0"
-                            style={{ maxHeight: '100px' }}
-                            navbarScroll
-                        ></Nav>
-                        <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+                             className="me-auto my-2 my-lg-0"
+                              style={{ maxHeight: '100px' }}
+                              navbarScroll >
+                                  <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+                                  <Nav.Link as={Link} to="/nosotros">Nosotros</Nav.Link>
+                            </Nav>
+                        
                         <NavDropdown title="Ropa Masculina" id="navbarScrollingDropdown">
                             <NavDropdown.Item href="#Pantalones">Pantalones</NavDropdown.Item>
                             <NavDropdown.Item href="#Remeras">
@@ -51,8 +55,8 @@ function Rutas() {
             </Navbar>
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/nosotros" element={<Nosotros />} />
             </Routes>
         </Container>
     );
 }
-export default Rutas;
