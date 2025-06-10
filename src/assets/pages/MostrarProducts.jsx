@@ -1,10 +1,12 @@
-
-import { Container, Card, Row, Col, Badge } from 'react-bootstrap';
+import { Container, Card, Row, Col, Badge, Button } from 'react-bootstrap';
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import ProductCard from './ProductCard';
+import { useProductos } from '../hooks/useProductos';
 
-function MostrarListaProductos({ productos }) {
+function MostrarListaProductos() {
+    //aqui consumimos los Productos y las funciones agregar, modificar, etc.
+    const {productos, agregarProducto } = useProductos();
+
     const productosFavoritos = productos.filter(p => p.favorito === true);
     const productosNoFavoritos = productos.filter(p => !p.favorito);
 

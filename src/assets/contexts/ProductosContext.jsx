@@ -1,0 +1,35 @@
+import {createContext, useState, useMemo, useCallback } from 'react';
+
+import datosProductos from '../data/Productos.json';
+
+// Creamos el contexto, lo exportamos y le damos el valor null por defecto
+export const ProductosContext = createContext(null);
+
+//Componente proveedor del contexto Productos y lo exportamos
+export function ProductosProvider({children}){
+    // Usamos los datos importados del JSON como el estado inicial
+    const [productos, setProductos ] = useState(datosProductos);
+
+    //Funciones para modificar la lista de productos
+    const agregarProducto = useCallback((nuevoProducto ) => {
+        setProductos((prevProductos) => {
+            const nuevoId = String(prevProductos.length > 0 ? 
+                Math.max(...prevProductos.map(a => Number (a.id))) +1 : 1);
+            return [...prevProductos, {...nuevoProducto, id: nuevoId}];
+        });
+    }, []);
+    // Aqui colocaremos las demas funciones como editar, eliminar(ocultarEstado), mostrar,etc
+    
+    // Memorizamos el valor del contexto para optimizar
+    const contextValue = useMemo(() => ({
+        productos,
+        setProductos,
+        agregarProducto,
+    }), [productos, agregarProducto]);
+
+    return (
+        <ProductosContext.Provider value={contextValue}>
+            {children}
+        </ProductosContext.Provider>
+    );
+}

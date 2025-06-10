@@ -1,15 +1,6 @@
 //pagina principal
-import Productos from "../data/Productos.json";
 import MostrarProductos from "./MostrarProducts";
-
-import Container from 'react-bootstrap/Container';
-import Card from 'react-bootstrap/Card';
-import Carousel from 'react-bootstrap/Carousel';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Image from 'react-bootstrap/Image';
-
+import { Container, Card, Carousel, Row, Col, Button, Image } from 'react-bootstrap';
 
 const Home = () => {
     return (
@@ -26,25 +17,25 @@ const Home = () => {
                         <br />
                         y el alma de un artista.
                     </Card.Text>
-                    <Carousel>
-                        <Carousel.Item interval={1000}>
+                    <Carousel className="mx-auto w-100" style={{ maxWidth: '1000px' }}>
+                        <Carousel.Item interval={3000}>
                             <img text="First slide" src='../../../public/1.png' className="d-block w-100" />
                         </Carousel.Item>
-                        <Carousel.Item interval={500}>
+                        <Carousel.Item interval={3000}>
                             <img text="Second slide" src='../../../public/2.png' className="d-block w-100" />
                         </Carousel.Item>
-                        <Carousel.Item>
+                        <Carousel.Item interval={3000}>
                             <img text="Third slide" src='../../../public/3.png' className="d-block w-100" />
                         </Carousel.Item>
-                        <Carousel.Item>
+                        <Carousel.Item interval={3000}>
                             <img text="Third slide" src='../../../public/4.png' className="d-block w-100" />
                         </Carousel.Item>
-                        <Carousel.Item>
+                        <Carousel.Item interval={4000}>
                             <img text="Third slide" src='../../../public/5.png' className="d-block w-100" />
                         </Carousel.Item>
                     </Carousel>
                 </Card.Body>
-                <MostrarProductos productos={Productos}/> {/*solo pa prueba*/}
+                <MostrarProductos/> {/*solo para prueba*/}
                 <Card.Footer className="text-muted bg-light p-4">
                     <Row className="text-center mb-4">
                         <Col md={4}>
