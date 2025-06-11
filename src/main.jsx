@@ -4,13 +4,16 @@ import App from './App.jsx';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from 'react-router';
 import { ProductosProvider } from './assets/contexts/ProductosContext.jsx';
+import { AutProvider } from './assets/contexts/AutorizacionesContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ProductosProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ProductosProvider>
+    <AutProvider>
+      <ProductosProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ProductosProvider>
+    </AutProvider>
   </StrictMode>,
 )
