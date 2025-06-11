@@ -32,7 +32,7 @@ const DetalleProducto = ({ producto, volver }) => {
                     <p><strong>Precio:</strong> ${producto.price}</p>
                     <p><strong>Descripción:</strong> {producto.description}</p>
                     <p><strong>Categoría:</strong> {producto.category}</p>
-                    <p><strong>Estado:</strong> {producto.estado ? 'Activo' : 'Inactivo'}</p>
+                    <p><strong>Estado:</strong> {producto.estado}</p>
                     <p><strong>Favorito:</strong> {producto.favorito ? 'Sí' : 'No'}</p>
 
                     <div className="mt-3">
