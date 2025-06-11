@@ -35,7 +35,7 @@ const Home = () => {
                         </Carousel.Item>
                     </Carousel>
                 </Card.Body>
-                <MostrarProductos/> {/solo para prueba/}
+                <MostrarProductos/> {/*solo para prueba*/}
             </Card>
         </Container>
     )
