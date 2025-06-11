@@ -1,0 +1,30 @@
+[
+    {
+        "id": "admin1",
+        "username" : "admin",
+        "password": "pass01",
+        "rol" : "ADMINISTRATIVO",
+        "name" : "Administrador Principal"
+    },
+    {
+        "id" : "cliente1",
+        "username" : "cliente",
+        "password" : "pass02",
+        "rol" : "CLIENTE",
+        "name" :"Cliente de Prueba"
+    },
+    {
+        "id": "admin2",
+        "username" : "admin2",
+        "password": "pass03",
+        "rol" : "ADMINISTRATIVO",
+        "name" : "Administrador Secundario"
+    },
+    {
+        "id" : "cliente2",
+        "username" : "cliente2",
+        "password" : "pass04",
+        "rol" : "CLIENTE",
+        "name" :"Cliente de Prueba"
+    }
+]
