@@ -19,19 +19,19 @@ const Home = () => {
                     </Card.Text>
                     <Carousel className="mx-auto w-100" style={{ maxWidth: '1000px' }}>
                         <Carousel.Item interval={3000}>
-                            <img text="First slide" src='../../../public/1.png' className="d-block w-100" />
+                            <img text="First slide" src='/1.png' className="d-block w-100" />
                         </Carousel.Item>
                         <Carousel.Item interval={3000}>
-                            <img text="Second slide" src='../../../public/2.png' className="d-block w-100" />
+                            <img text="Second slide" src='/2.png' className="d-block w-100" />
                         </Carousel.Item>
                         <Carousel.Item interval={3000}>
-                            <img text="Third slide" src='../../../public/3.png' className="d-block w-100" />
+                            <img text="Third slide" src='/3.png' className="d-block w-100" />
                         </Carousel.Item>
                         <Carousel.Item interval={3000}>
-                            <img text="Third slide" src='../../../public/4.png' className="d-block w-100" />
+                            <img text="Third slide" src='/4.png' className="d-block w-100" />
                         </Carousel.Item>
                         <Carousel.Item interval={4000}>
-                            <img text="Third slide" src='../../../public/5.png' className="d-block w-100" />
+                            <img text="Third slide" src='/5.png' className="d-block w-100" />
                         </Carousel.Item>
                     </Carousel>
                 </Card.Body>

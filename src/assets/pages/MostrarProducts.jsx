@@ -5,10 +5,10 @@ import { useProductos } from '../hooks/useProductos';
 
 function MostrarListaProductos() {
     //aqui consumimos los Productos y las funciones agregar, modificar, etc.
-    const {productos, agregarProducto } = useProductos();
+    const { productos, agregarProducto, eliminarProducto } = useProductos();
 
     const productosFavoritos = productos.filter(p => p.favorito === true);
-    const productosNoFavoritos = productos.filter(p => !p.favorito);
+const productosNoFavoritos = productos.filter(p => !p.favorito);
 
     const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
@@ -34,10 +34,10 @@ function MostrarListaProductos() {
                         <Col key={producto.id}>
                             <Card className="h-100 shadow-sm">
                                 <Card.Img
-                                    variant="top"
+                                    variant='top' className="img-fluid mx-auto d-block mt-4"
                                     src={producto.image || "https://via.placeholder.com/150"}
                                     alt={`Imagen de ${producto.title}`}
-                                    style={{ width: '100px', height: '100px', objectFit: 'contain', marginBottom: '20px' }}
+                                    style={{ width: '150px', height: '150px', objectFit: 'contain', marginBottom: '20px' }}
                                 />
                                 <Card.Body>
                                     <Card.Title>{producto.title}</Card.Title>
@@ -48,6 +48,14 @@ function MostrarListaProductos() {
                                         <Badge bg={producto.favorito ? 'success' : 'secondary'}>
                                             {producto.favorito ? 'Sí' : 'No'}
                                         </Badge>
+                                        <Button
+                                            variant={producto.estado === 'activo' ? 'danger' : 'success'}
+                                            onClick={() => eliminarProducto(producto.id)}
+                                            className="mt-2 me-2"
+                                        >
+                                            {producto.estado === 'activo' ? 'Eliminar producto' : 'Reactivar producto'}
+                                        </Button>
+
                                     </Card.Text>
                                     <Button
                                         variant="info"
