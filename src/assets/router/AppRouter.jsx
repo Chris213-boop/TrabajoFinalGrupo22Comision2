@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import Home from '../pages/Home';
 import Nosotros from '../pages/Nosotros';
 import Layout from '../pages/Layout';
+import Error from '../pages/Error';
 
 
 function Rutas() {
@@ -12,6 +13,7 @@ function Rutas() {
                 <Route path='/' element={<Layout />}>
                     <Route index element={<Home />} />
                     <Route path="/nosotros" element={<Nosotros />} />
+                    <Route path="*" element = {<Error/>} />
                 </Route>
             </Routes>
         </Container>
