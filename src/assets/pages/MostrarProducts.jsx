@@ -5,10 +5,10 @@ import { useProductos } from '../hooks/useProductos';
 
 function MostrarListaProductos() {
     //aqui consumimos los Productos y las funciones agregar, modificar, etc.
-    const { productos, agregarProducto, eliminarProducto } = useProductos();
+    const { productos, agregarProducto, eliminarProducto, favoritoProducto } = useProductos();
 
     const productosFavoritos = productos.filter(p => p.favorito === true);
-const productosNoFavoritos = productos.filter(p => !p.favorito);
+    const productosNoFavoritos = productos.filter(p => !p.favorito);
 
     const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
@@ -44,10 +44,19 @@ const productosNoFavoritos = productos.filter(p => !p.favorito);
                                     <Card.Subtitle className="mb-2 text-muted">Categoría: {producto.category}</Card.Subtitle>
                                     <Card.Text>
                                         <strong>Precio:</strong> ${producto.price}<br />
-                                        <strong>Favorito:</strong>{' '}
+                                        {/* <strong>Favorito:</strong>{' '}
                                         <Badge bg={producto.favorito ? 'success' : 'secondary'}>
                                             {producto.favorito ? 'Sí' : 'No'}
-                                        </Badge>
+                                        </Badge> */}
+                                        <Button
+                                            variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
+                                            onClick={() => favoritoProducto(producto.id)}
+                                            className="me-2"
+                                        >
+                                            {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
+                                        </Button>
+
+
                                         <Button
                                             variant={producto.estado === 'activo' ? 'danger' : 'success'}
                                             onClick={() => eliminarProducto(producto.id)}
