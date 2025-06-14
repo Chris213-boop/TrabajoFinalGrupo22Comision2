@@ -17,7 +17,7 @@ function Nosotros() {
                 </Card.Text>
                 <CardGroup>
                     <Card>
-                        <Image variant="top" src=' /public/PabloGabriel.jpg' thumbnail />
+                        <Image src='PabloGabriel.jpg' thumbnail alt='Torres, Pablo'/>
                         <Card.Body>
                             <Card.Title>Torres Pablo Gabriel</Card.Title>
                             <ListGroup>
@@ -47,7 +47,7 @@ function Nosotros() {
                         </Card.Footer>
                     </Card>
                     <Card>
-                        <Image variant="top" src=' /public/CintiaCristina.jpg' thumbnail />
+                        <Image src='CintiaCristina.jpg' thumbnail alt='Torres, Cintia'/>
                         <Card.Body>
                             <Card.Title>Torres Cintia Cristina</Card.Title>
                             <ListGroup>
@@ -77,7 +77,7 @@ function Nosotros() {
                         </Card.Footer>
                     </Card>
                     <Card>
-                        <Image variant="top" src=' /public/PedroCayo.jpg' thumbnail />
+                        <Image src='PedroCayo.jpg' thumbnail alt='Cayo, Pedro'/>
                         <Card.Body>
                             <Card.Title>Pedro Dardo Ramón Cayo </Card.Title>
                             <ListGroup>
@@ -107,7 +107,7 @@ function Nosotros() {
                         </Card.Footer>
                     </Card>
                     <Card>
-                        <Image variant="top" src=' /public/AnaLucia.jpg' thumbnail />
+                        <Image src='AnaLucia.jpg' thumbnail alt='Vargas Soraide, Ana'/>
                         <Card.Body>
                             <Card.Title>Ana Lucia Vargas Soraide</Card.Title>
                             <ListGroup>
@@ -137,7 +137,7 @@ function Nosotros() {
                         </Card.Footer>
                     </Card>
                     <Card>
-                        <Image variant="top" src=' /public/Maximiliano.jpg' thumbnail />
+                        <Image src='Maximiliano.jpg' thumbnail alt='Antenor, Maximiliano'/>
                         <Card.Body>
                             <Card.Title>Maximiliano Leandro Cayetano Antenor</Card.Title>
                             <ListGroup>
