@@ -14,6 +14,7 @@ function Layout() {
                             style={{ maxHeight: '100px' }}
                             navbarScroll >
                             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+                            <Nav.Link as={Link} to="/home">Productos</Nav.Link>
                             <Nav.Link as={Link} to="/nosotros">Nosotros</Nav.Link>
                         </Nav>
 
@@ -86,18 +87,18 @@ function Layout() {
                             <Row>
                                 <Col xs={6} md={4}>
                                     <a href="#" target="_blank">
-                                        <Image src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" width="32" thumbnail />
+                                        <Image src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" width="32"  />
                                     </a>
                                 </Col>
                                 
                                 <Col xs={6} md={4}>
                                     <a href="#" target="_blank">
-                                        <Image src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="32" thumbnail />
+                                        <Image src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="32"  />
                                     </a>
                                 </Col>
                                 <Col xs={6} md={4}>
                                     <a href="#" target="_blank">
-                                        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" width="32" thumbnail />
+                                        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" width="32"  />
                                     </a>
                                 </Col>
                             </Row>
