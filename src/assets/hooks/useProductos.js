@@ -1,6 +1,7 @@
 // Hook personalizado
 import { useContext } from "react";
-import { ProductosContext } from "../contexts/ProductosContext";
+//import { ProductosContext } from "../contexts/ProductosContext";  //este contiene los datos en el almacenamiento local
+import { ProductosContext } from "../contexts/ProductosAPIContext";
 
 export function useProductos() {
     const context = useContext (ProductosContext); // Aqui hacemos el llamado al contexto que creamos

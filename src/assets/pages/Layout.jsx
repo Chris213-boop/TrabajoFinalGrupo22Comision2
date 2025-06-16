@@ -1,7 +1,17 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link} from 'react-router-dom';
 import { Container, NavDropdown, Nav, Navbar, Row, Col, Button, Image, Card  } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import useAut from '../hooks/useAut';
 
 function Layout() {
+    const {user, isAuthenticated, logout} = useAut();
+    const navigate = useNavigate ();
+    
+    const manejarLogout = () => {
+        logout();
+        navigate('/');
+    };
+
     return (
         <>
             <Navbar expand="lg" className="bg-body-tertiary" >
@@ -16,35 +26,28 @@ function Layout() {
                             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
                             <Nav.Link as={Link} to="/home">Productos</Nav.Link>
                             <Nav.Link as={Link} to="/nosotros">Nosotros</Nav.Link>
+                        {/* </Nav> */}
+                            {isAuthenticated && user?.rol === "ADMINISTRATIVO" && (
+                                <NavDropdown title="Administrar Productos" id="admin-nav-dropdown">
+                                    <NavDropdown.Item as={Link} to="#agregar">Agregar Producto</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="#modificar">Modificar Producto</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="#eliminar">Eliminar Producto</NavDropdown.Item>
+                                </NavDropdown>
+                            )}
+                            {isAuthenticated && user?.rol === "CLIENTE" && (
+                                <NavDropdown title="Mi Cuenta" id="cliente-nav-dropdown">
+                                    <NavDropdown.Item as={Link} to="#/favoritos">Favoritos</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="#/perfil">Mi Perfil</NavDropdown.Item>
+                                </NavDropdown>
+                            )}
                         </Nav>
-
-                        <NavDropdown title="Ropa Masculina" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="#Pantalones">Pantalones</NavDropdown.Item>
-                            <NavDropdown.Item href="#Remeras">
-                                Remeras
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#Zapatillas">
-                                Zapatillas
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Ropa Femenina" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="#Pantalones">Pantalones</NavDropdown.Item>
-                            <NavDropdown.Item href="#Remeras">
-                                Remeras
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#Zapatillas">
-                                Zapatillas
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Joyas" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="#Pantalones">Oro</NavDropdown.Item>
-                            <NavDropdown.Item href="#Remeras">
-                                Plata
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#Zapatillas">
-                                Acero
-                            </NavDropdown.Item>
-                        </NavDropdown>
+                        <Nav>
+                            {isAuthenticated ? (
+                                <Button variant='outline-success' onClick={manejarLogout}> Cerrar Sesión</Button>
+                                ):(
+                                <Nav.Link href='/'> Iniciar Sesión </Nav.Link>
+                                )}
+                        </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
@@ -68,7 +71,7 @@ function Layout() {
                             <p>Escribinos al WhatsApp: +54 342-5930997</p>
                         </Col>
                     </Row>
-                    <Row className="text-left">
+                    <Row className="text-center mb-4">
                         <Col md={4}>
                             <h6>MEDIOS DE PAGO</h6>
                             <p>Visa, MasterCard, Mercado Pago, etc.</p>
