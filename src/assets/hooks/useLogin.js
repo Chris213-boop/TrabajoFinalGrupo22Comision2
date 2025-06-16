@@ -21,7 +21,7 @@ function useLogin() {
                 navigate('/home', { replace: true });
             } else if (user?.rol === 'CLIENTE') { //verifica que el rol es "CLIENTE"
                 console.log("Redirigiendo a /nosotros");
-                navigate('/nosotros', { replace: true });
+                navigate('/home', { replace: true });
             } else {
                 console.log("Rol desconocido, redirigiendo a /error"); //muestra este mensaje en otro caso
                 navigate('/error', { replace: true });
