@@ -2,6 +2,7 @@ import { Container, Card, Row, Col, Badge, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import ProductCard from './ProductCard';
 import { useProductos } from '../hooks/useProductos';
+import Favoritos from './Favoritos';
 
 function MostrarListaProductos() {
     //aqui consumimos los Productos y las funciones agregar, modificar, etc.
@@ -51,7 +52,7 @@ function MostrarListaProductos() {
                                         <Button
                                             variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
                                             onClick={() => favoritoProducto(producto.id)}
-                                            className="me-2"
+                                            className="mt-2 me-2"
                                         >
                                             {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
                                         </Button>
@@ -69,7 +70,7 @@ function MostrarListaProductos() {
                                     <Button
                                         variant="info"
                                         onClick={() => setProductoSeleccionado(producto)}
-                                        className="mt-2"
+                                        className="mt-2 me-2"
                                     >
                                         Ver Detalle
                                     </Button>

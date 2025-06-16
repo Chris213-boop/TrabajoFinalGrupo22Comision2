@@ -32,12 +32,38 @@ export function ProductosProvider ({children}) {
     }, []);
     //Aqui van las funciones que modifican la lista de Productos: eliminar, agregar, ver favoritos, modificar, etc.
 
+    const eliminarProducto = useCallback((idProducto) => {
+        setProductos((prevProductos) =>
+            prevProductos.map((producto) =>
+                producto.id === idProducto
+                    ? {
+                        ...producto,
+                        estado: producto.estado === 'activo' ? 'inactivo' : 'activo'
+                    }
+                    : producto
+            )
+        );
+    }, []);
+
+    const favoritoProducto = useCallback((idProducto) => {
+        setProductos(prevProductos =>
+            prevProductos.map(producto =>
+                producto.id === idProducto
+                    ? { ...producto, favorito: !producto.favorito }
+                    : producto
+            )
+        );
+    }, []);
+
+
     const contextValue = useMemo(() => ({ //aqui van todos los recursos que se les va a pasar a los children
         productos,
         setProductos,
         isLoading,
         error,
-    }), [productos, isLoading, error]);
+        eliminarProducto,
+        favoritoProducto,
+    }), [productos, isLoading, error, eliminarProducto, favoritoProducto]);
 
     return (
         //ProductosContext.Provider : es un componente funcional, mientras que contextValue es un prop que se le pasa a los hijos de ese componente funcional.

@@ -36,7 +36,7 @@ function Layout() {
                             )}
                             {isAuthenticated && user?.rol === "CLIENTE" && (
                                 <NavDropdown title="Mi Cuenta" id="cliente-nav-dropdown">
-                                    <NavDropdown.Item as={Link} to="#/favoritos">Favoritos</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/favoritos">Favoritos</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="#/perfil">Mi Perfil</NavDropdown.Item>
                                 </NavDropdown>
                             )}

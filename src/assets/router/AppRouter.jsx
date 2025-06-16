@@ -5,6 +5,7 @@ import Nosotros from '../pages/Nosotros';
 import Layout from '../pages/Layout';
 import Error from '../pages/Error';
 import LoginPage from '../pages/LoginPage';
+import Favoritos from '../pages/Favoritos';
 
 
 function Rutas() {
@@ -16,6 +17,7 @@ function Rutas() {
                     <Route index element={<LoginPage/>} />
                     <Route path="home" element={<Home />} />
                     <Route path="/nosotros" element={<Nosotros />} />
+                    <Route path="/favoritos" element={<Favoritos />} />
                     <Route path="*" element = {<Error/>} />
                 </Route>
             </Routes>
