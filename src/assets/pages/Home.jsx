@@ -1,5 +1,5 @@
 //pagina principal
-import MostrarProductos from "./MostrarProducts";
+import MostrarProductos from "../components/MostrarProducts";
 import { Container, Card, Carousel} from 'react-bootstrap';
 
 const Home = () => {
