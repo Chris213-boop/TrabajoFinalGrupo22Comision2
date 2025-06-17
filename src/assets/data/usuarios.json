@@ -26,5 +26,19 @@
         "password" : "pass04",
         "rol" : "CLIENTE",
         "name" :"Cliente de Prueba"
+    },
+    {
+        "id": "Cris",
+        "username" : "Cristina",
+        "password": "Cris5",
+        "rol" : "ADMINISTRATIVO",
+        "name" : "Administrador Terciario"
+    },
+    {
+        "id" : "CrisCliente",
+        "username" : "Cristina",
+        "password" : "Cris8",
+        "rol" : "CLIENTE",
+        "name" :"Cliente de Prueba"
     }
 ]
