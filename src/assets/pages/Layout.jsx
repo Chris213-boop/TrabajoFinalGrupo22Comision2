@@ -24,14 +24,19 @@ function Layout() {
                             style={{ maxHeight: '100px' }}
                             navbarScroll >
                             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
-                            <Nav.Link as={Link} to="/home">Productos</Nav.Link>
+                            <Nav.Link as={Link} to="/productos">Productos</Nav.Link>
                             <Nav.Link as={Link} to="/nosotros">Nosotros</Nav.Link>
+                            <Nav.Link as={Link} to="/buscar">Buscar</Nav.Link>
+
                         {/* </Nav> */}
                             {isAuthenticated && user?.rol === "ADMINISTRATIVO" && (
                                 <NavDropdown title="Administrar Productos" id="admin-nav-dropdown">
                                     <NavDropdown.Item as={Link} to="#agregar">Agregar Producto</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="#modificar">Modificar Producto</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="#eliminar">Eliminar Producto</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/eliminados">Productos Eliminados</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/prodFav">Favoritos</NavDropdown.Item>
+
                                 </NavDropdown>
                             )}
                             {isAuthenticated && user?.rol === "CLIENTE" && (
@@ -41,13 +46,21 @@ function Layout() {
                                 </NavDropdown>
                             )}
                         </Nav>
-                        <Nav>
+                        <Nav className="d-flex align-items-center gap-2">
                             {isAuthenticated ? (
-                                <Button variant='outline-success' onClick={manejarLogout}> Cerrar Sesión</Button>
-                                ):(
-                                <Nav.Link href='/'> Iniciar Sesión </Nav.Link>
-                                )}
+                                <>
+                                    <Navbar.Text className="me-2">
+                                        👤 {user?.username || "Usuario"}
+                                    </Navbar.Text>
+                                    <Button variant='outline-success' onClick={manejarLogout}>
+                                        Cerrar Sesión
+                                    </Button>
+                                </>
+                            ) : (
+                                <Nav.Link href='/'>Iniciar Sesión</Nav.Link>
+                            )}
                         </Nav>
+
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

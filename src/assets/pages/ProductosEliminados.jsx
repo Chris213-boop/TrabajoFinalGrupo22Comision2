@@ -1,12 +1,15 @@
+
 import { Container, Card, Row, Col, Badge, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import ProductCard from './ProductCard';
 import { useProductos } from '../hooks/useProductos';
+import useAut from '../hooks/useAut';
 
+function ProductosEliminados() {
+    const { productos, eliminarProducto, favoritoProducto } = useProductos();
+    const { user, isAuthenticated } = useAut();
 
-function MostrarListaProductos() {
-    //aqui consumimos los Productos y las funciones agregar, modificar, etc.
-    const { productos, agregarProducto, eliminarProducto, favoritoProducto } = useProductos();
+    const productosEliminados = productos.filter(producto => producto.estado === 'inactivo');
 
     const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
@@ -18,16 +21,17 @@ function MostrarListaProductos() {
             />
         );
     }
+
     return (
         <Container className="mt-4">
             <h4 className="text-center mb-3">
-                <Badge bg="info" className="p-2">📦 Productos</Badge>
+                <Badge bg="danger" className="p-2">🗑️ Productos Eliminados</Badge>
             </h4>
             <Row xs={1} md={2} lg={3} className="g-4">
-                {productos.length === 0 ? (
-                    <p className="text-muted text-center">No hay productos disponibles.</p>
+                {productosEliminados.length === 0 ? (
+                    <p className="text-muted text-center">No hay productos eliminados.</p>
                 ) : (
-                    productos.map((producto) => (
+                    productosEliminados.map((producto) => (
                         <Col key={producto.id}>
                             <Card className="h-100 shadow-sm">
                                 <Card.Img
@@ -57,13 +61,15 @@ function MostrarListaProductos() {
                                             {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
                                         </Button>
 
-                                        <Button
-                                            variant={producto.estado === 'activo' ? 'danger' : 'success'}
-                                            onClick={() => eliminarProducto(producto.id)}
-                                            className="mt-2 me-2"
-                                        >
-                                            {producto.estado === 'activo' ? 'Eliminar' : 'Reactivar'}
-                                        </Button>
+                                        {isAuthenticated && user?.rol === "ADMINISTRATIVO" && (
+                                            <Button
+                                                variant="success"
+                                                onClick={() => eliminarProducto(producto.id)} // reactiva el producto
+                                                className="mt-2 me-2"
+                                            >
+                                                Reactivar
+                                            </Button>
+                                        )}
                                     </Card.Text>
                                     <Button
                                         variant="info"
@@ -80,7 +86,6 @@ function MostrarListaProductos() {
             </Row>
         </Container>
     );
-    
 }
 
-export default MostrarListaProductos;
+export default ProductosEliminados;

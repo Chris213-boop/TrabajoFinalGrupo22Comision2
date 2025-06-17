@@ -1,105 +1,143 @@
 import { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Alert from 'react-bootstrap/Alert';
-import Container from "react-bootstrap/Container";
-import Badge from 'react-bootstrap/Badge';
+import { Form, Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
+import { useProductos } from '../hooks/useProductos';
+import useAut from '../hooks/useAut';
 
-import DetalleProducto from '../pages/ProductCard'; // Usando el DetalleProducto existente (exportado desde ProductCard.jsx)
+function BuscarProducto() {
+  const { productos, favoritoProducto, eliminarProducto } = useProductos();
+  const [busqueda, setBusqueda] = useState('');
+  const { user, isAuthenticated } = useAut();
 
-function BuscarProducto({ productos }) {
-  const [valorBusqueda, setValorBusqueda] = useState('');
-  const [resultado, setResultado] = useState(null);
-  const [noEncontrado, setNoEncontrado] = useState(false);
-  const [inactivo, setInactivo] = useState(false);   // Para mensajes si el producto encontrado está inactivo
+  // Estados para filtros
+  const [buscarPorId, setBuscarPorId] = useState(false);
+  const [buscarPorNombre, setBuscarPorNombre] = useState(true);
+  const [buscarPorCategoria, setBuscarPorCategoria] = useState(true);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!valorBusqueda.trim()) {
-        setNoEncontrado(false); // Limpiar mensajes si la búsqueda está vacía
-        setInactivo(false);
-        setResultado(null);
-        return;
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+
+
+  if (productoSeleccionado) {
+        return (
+            <ProductCard
+                producto={productoSeleccionado}
+                volver={() => setProductoSeleccionado(null)}
+            />
+        );
     }
 
-    const busquedaNormalizada = valorBusqueda.toLowerCase().trim();
-    // Lógica de búsqueda directa en el componente
-    const res = productos.find(p =>
-        String(p.id).toLowerCase().includes(busquedaNormalizada) ||
-        (p.title && p.title.toLowerCase().includes(busquedaNormalizada)) || // Asegúrate que p.title exista
-        (p.category && p.category.toLowerCase().includes(busquedaNormalizada)) // Asegúrate que p.category exista
-        // Puedes añadir más campos a la búsqueda si es necesario
-    );
+  const filtrarProductos = productos.filter((producto) => {
+    const texto = busqueda.toLowerCase();
 
-    if (res) {
-      // Asumiendo que tus productos tienen una propiedad 'estado' (booleano)
-      // que indica si el producto está activo o no.
-      // El componente DetalleProducto usa 'producto.estado'
-      if (res.estado === true) { // Verifica si el producto está activo
-        setResultado(res);
-        setNoEncontrado(false);
-        setInactivo(false);
-      } else {
-        // Producto encontrado pero está inactivo
-        setResultado(null); // No mostramos el detalle si está inactivo
-        setNoEncontrado(false);
-        setInactivo(true); // Mostramos mensaje de producto inactivo
-      }
-    } else {
-      // Producto no encontrado
-      setResultado(null);
-      setNoEncontrado(true);
-      setInactivo(false);
-    }
-  };
+    const coincideId = buscarPorId && producto.id.toString().includes(texto);
+    const coincideNombre = buscarPorNombre && producto.title.toLowerCase().includes(texto);
+    const coincideCategoria = buscarPorCategoria && producto.category.toLowerCase().includes(texto);
 
-  if (resultado) {
-    return (
-      <DetalleProducto
-        producto={resultado}
-        volver={() => {
-          setResultado(null);
-          setValorBusqueda(''); // Limpiar campo de búsqueda al volver
-          setNoEncontrado(false);
-          setInactivo(false);
-        }}
-      />
-    );
-  }
+    return coincideId || coincideNombre || coincideCategoria;
+  });
+
 
   return (
     <Container className="mt-4">
-      <h2><Badge bg="primary">Buscar Producto</Badge></h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="busquedaProducto">
-          <Form.Label>Buscar por ID, Nombre o Categoría del Producto</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Ej: 1 o Backpack o men's clothing"
-            value={valorBusqueda}
-            onChange={(e) => {
-                setValorBusqueda(e.target.value);
-                // Opcional: limpiar mensajes mientras el usuario escribe
-                if (noEncontrado) setNoEncontrado(false);
-                if (inactivo) setInactivo(false);
-            }}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Buscar
-        </Button>
-      </Form>
-      {noEncontrado && (
-        <Alert variant="danger" className="mt-3">
-          Producto no encontrado. Por favor, intente con otros términos de búsqueda.
-        </Alert>
-      )}
+      <h4 className="text-center mb-4">
+        <Badge bg="secondary" className="p-2">🔍 Buscar Productos</Badge>
+      </h4>
 
-      {inactivo && (
-        <Alert variant="warning" className="mt-3">
-          El producto fue encontrado pero se encuentra inactivo y no puede ser consultado en detalle.
-        </Alert>
-      )}
+      {/* barra de búsqueda */}
+      <Form.Group className="mb-3" controlId="barraBusqueda">
+        <Form.Control
+          type="text"
+          placeholder="Buscar por ID, nombre o categoría"
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+        />
+      </Form.Group>
+
+      {/* casillas de filtros */}
+      <Form.Group className="mb-4">
+        <Form.Check
+          type="checkbox"
+          label="Buscar por ID"
+          checked={buscarPorId}
+          onChange={() => setBuscarPorId(!buscarPorId)}
+          inline
+        />
+        <Form.Check
+          type="checkbox"
+          label="Buscar por Nombre"
+          checked={buscarPorNombre}
+          onChange={() => setBuscarPorNombre(!buscarPorNombre)}
+          inline
+        />
+        <Form.Check
+          type="checkbox"
+          label="Buscar por Categoría"
+          checked={buscarPorCategoria}
+          onChange={() => setBuscarPorCategoria(!buscarPorCategoria)}
+          inline
+        />
+      </Form.Group>
+
+      {/* Resultados */}
+      <Row xs={1} md={2} lg={3} className="g-4">
+        {filtrarProductos.length === 0 ? (
+          <p className="text-muted text-center">No se encontraron productos.</p>
+        ) : (
+          filtrarProductos.map((producto) => (
+            <Col key={producto.id}>
+              <Card className="h-100 shadow-sm">
+                <Card.Img
+                  variant="top"
+                  className="img-fluid mx-auto d-block mt-4"
+                  src={producto.image || "https://via.placeholder.com/150"}
+                  alt={`Imagen de ${producto.title}`}
+                  style={{
+                    width: '150px',
+                    height: '150px',
+                    objectFit: 'contain',
+                    marginBottom: '20px'
+                  }}
+                />
+                <Card.Body>
+                  <Card.Title>{producto.title}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Categoría: {producto.category}
+                  </Card.Subtitle>
+                  <Card.Text>
+                    <strong>Precio:</strong> ${producto.price}<br />
+                    <Button
+                      variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
+                      onClick={() => favoritoProducto(producto.id)}
+                      className="mt-2 me-2"
+                    >
+                      {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
+                    </Button>
+
+                    {/* Solo visible para ADMINISTRADOR */}
+                    {isAuthenticated && user?.rol === "ADMINISTRATIVO" && (
+                      <Button
+                        variant={producto.estado === 'activo' ? 'danger' : 'success'}
+                        onClick={() => eliminarProducto(producto.id)}
+                        className="mt-2 me-2"
+                      >
+                        {producto.estado === 'activo' ? 'Eliminar' : 'Reactivar'}
+                      </Button>
+                    )}
+
+                    <Button
+                      variant="info"
+                      onClick={() => setProductoSeleccionado(producto)}
+                      className="mt-2 me-2"
+                    >
+                      Ver Detalle
+                    </Button>
+
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        )}
+      </Row>
     </Container>
   );
 }

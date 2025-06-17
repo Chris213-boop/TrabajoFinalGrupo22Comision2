@@ -22,7 +22,7 @@
     },
     {
         "id" : "cliente2",
-        "username" : "cliente2",
+        "username" : "Pablo",
         "password" : "pass04",
         "rol" : "CLIENTE",
         "name" :"Cliente de Prueba"
