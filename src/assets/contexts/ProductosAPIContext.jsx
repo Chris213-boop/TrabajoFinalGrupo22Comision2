@@ -4,10 +4,10 @@ import { createContext, useState, useMemo, useCallback, useEffect } from "react"
 export const ProductosContext = createContext(null);
 
 //Componente proveedor del contexto de Productos
-export function ProductosProvider ({children}) {
-    const [productos, setProductos] = useState([]); 
-    const [isLoading, setIsLoading ] = useState(true);
-    const [error, setError ] = useState(null);
+export function ProductosProvider({ children }) {
+    const [productos, setProductos] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchProductos = async () => { //aqui definimos una funcion asincrona llamada fetchProductos
@@ -15,12 +15,21 @@ export function ProductosProvider ({children}) {
                 setIsLoading(true);
                 setError(null);
 
-                const response = await fetch ('https://fakestoreapi.com/products'); //response= promesa,http:... es la petición 
+                const response = await fetch('https://fakestoreapi.com/products'); //response= promesa,http:... es la petición 
                 if (!response.ok) {
                     throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
                 }
                 const data = await response.json();
-                setProductos (data);
+
+                //Agrego estado "activo" y favorito "false" por defecto en la lista para que sea funcional
+                const productosConCampos = data.map(producto => ({
+                    ...producto,
+                    estado: 'activo',
+                    favorito: false
+                }));
+
+                setProductos(productosConCampos);
+                
             } catch (err) {
                 console.error("Error al cargar productos de la API: ", err);
                 setError("No se pudieron cargar los Productos. Intentelo de nuevo más tarde.");
