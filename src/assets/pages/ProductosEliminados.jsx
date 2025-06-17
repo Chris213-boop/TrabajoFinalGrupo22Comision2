@@ -1,5 +1,5 @@
 
-import { Container, Card, Row, Col, Badge, Button } from 'react-bootstrap';
+import { Container, Card, Row, Col, Badge, Button, Image } from 'react-bootstrap';
 import { useState } from 'react';
 import ProductCard from './ProductCard';
 import { useProductos } from '../hooks/useProductos';
@@ -29,7 +29,10 @@ function ProductosEliminados() {
             </h4>
             <Row xs={1} md={2} lg={3} className="g-4">
                 {productosEliminados.length === 0 ? (
-                    <p className="text-muted text-center">No hay productos eliminados.</p>
+                    <Card className="mx-auto">
+                        <Image src= '/public/StitchEliminados.png' alt='No hay productos Eliminados'/>
+                        {/* <p className="text-muted text-center">No hay productos eliminados.</p> */}
+                    </Card>
                 ) : (
                     productosEliminados.map((producto) => (
                         <Col key={producto.id}>

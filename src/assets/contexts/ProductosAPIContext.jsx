@@ -64,7 +64,6 @@ export function ProductosProvider({ children }) {
         );
     }, []);
 
-    //////////////////////
     const buscarProducto = useCallback((valorBusqueda) => {
         const busquedaNormalizada = valorBusqueda.toLowerCase().trim();
 
@@ -88,7 +87,6 @@ export function ProductosProvider({ children }) {
 
         return { producto: activos, estado: 'activo' };
     }, [productos]);
-    ///////////////////////////
 
 
     const modificarProducto = useCallback((productoModificado) => {
