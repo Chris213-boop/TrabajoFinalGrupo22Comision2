@@ -1,42 +1,57 @@
 import { Alert, Button, Container, Form, Card } from "react-bootstrap";
 import useLogin from "../hooks/useLogin";
+import useValidacionProducto from "../hooks/useValidacionProducto";
 
 function LoginPage() {
-    const {username, setUsername, password, setPassword, loginError, Enviar} = useLogin();
+    const { username, setUsername, password, setPassword, loginError, Enviar } = useLogin();
+    const { esValido, tocado, marcarTocado } = useValidacionProducto({
+        username,
+        password
+    });
 
     return (
         <Container>
-            <Card>
+            <Card className="login-card">
+                <div className="emoji-lock">🔐</div>
                 <Card.Body>
                     <Card.Title> Iniciar Sesion</Card.Title>
-                    <Form onSubmit={Enviar}>
+                    <Form onSubmit={Enviar} noValidate>
                         <Form.Group>
-                            <Form.Label>Usuario: </Form.Label>
+                            <Form.Label>👤 Usuario </Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="Ingresa tu usuario"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
+                                onBlur={() => marcarTocado("username")}
+                                isValid={tocado.username && esValido.username}
+                                isInvalid={tocado.username && !esValido.username}
                                 required />
+                            <Form.Control.Feedback type="invalid">
+                                Debe ingresar mas de 3 caracteres sin numeros.
+                            </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Contraseña: </Form.Label>
+                        <Form.Group className="mb-3">
+                            <Form.Label>🔒 Contraseña</Form.Label>
                             <Form.Control
                                 type="password"
                                 placeholder="Contraseña"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                // onBlur={() => marcarTocado("password")}
-                                // isValid={tocado.password && esValido.password}
-                                // isInvalid={tocado.password && !esValido.password}
+                                onBlur={() => marcarTocado("password")}
+                                isValid={tocado.password && esValido.password}
+                                isInvalid={tocado.password && !esValido.password}
                                 required />
+                            <Form.Control.Feedback type="invalid">
+                                Debe ingresar mas de 3 caracteres.
+                            </Form.Control.Feedback>
                         </Form.Group>
                         {loginError && (
                             <Alert variant="danger">
                                 {loginError}
                             </Alert>
                         )}
-                        <Button type="submit"> Entrar</Button>
+                        <Button type="submit">🚀 Entrar</Button>
                     </Form>
                 </Card.Body>
             </Card>

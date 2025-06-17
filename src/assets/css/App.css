@@ -1,4 +1,77 @@
 /*css Creado para añadir estilos personalizados que no se pueden con React Bootstrap.
+/* Fuente general */
+/* estilos.css */
+
+body {
+  background-color: #FDECEF !important;
+  font-family: 'Montserrat', sans-serif !important;
+  color: #333333;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #00bcd4 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.nav-link, .dropdown-item {
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover, .dropdown-item:hover {
+  color: #ffc107 !important;
+}
+
+.card-footer {
+  background-color: #ffffff !important;
+  border-top: 2px solid #e0e0e0;
+}
+
+.card-footer h6 {
+  color: #00bcd4;
+  font-weight: bold;
+}
+
+.card-footer p, .card-footer input {
+  font-size: 0.95rem;
+}
+
+.card-footer input {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.card-footer button {
+  color: #00bcd4;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.card-footer button:hover {
+  color: #0097a7;
+  text-decoration: underline;
+}
+
+
+
+/* Título de sección */
+.titulo-seccion {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00bcd4;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
 /* DetalleProducto.css */
 .detalle-container {
   background-color: #ffffff;
@@ -56,4 +129,60 @@
 .detalle-boton:hover {
   background-color: #495057;
   color: white;
+}
+
+/* ===== LOGIN ===== */
+.login-card {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+
+.login-card .card-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #00bcd4;
+}
+
+.login-card .form-label {
+  font-weight: 600;
+  color: #333333;
+}
+
+.login-card .form-control {
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-size: 0.95rem;
+}
+
+.login-card .btn {
+  background-color: #00bcd4;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-top: 15px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.login-card .btn:hover {
+  background-color: #0097a7;
+}
+
+.login-card .alert {
+  margin-top: 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.login-card .emoji-lock {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 10px;
 }
