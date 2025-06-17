@@ -69,7 +69,7 @@ function Layout() {
                 <Outlet></Outlet>
             </section>
 
-            <Card.Footer className="text-muted bg-light p-4">
+            <Card.Footer className="text-muted bg-light p-4 mt-5">
                     <Row className="text-center mb-4">
                         <Col md={4}>
                             <h6>🚚 ENVÍOS A TODO EL PAÍS</h6>

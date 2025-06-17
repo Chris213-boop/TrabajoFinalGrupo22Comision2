@@ -1,5 +1,5 @@
 
-import { Container, Card, Row, Col, Badge, Button } from 'react-bootstrap';
+import { Container, Card, Row, Col, Badge, Button, Image } from 'react-bootstrap';
 import { useState } from 'react';
 import ProductCard from './ProductCard';
 import { useProductos } from '../hooks/useProductos';
@@ -31,8 +31,12 @@ function ProductosFavoritos() {
             </h4>
             <Row xs={1} md={2} lg={3} className="g-4">
                 {productosFavoritos.length === 0 ? (
-                    <p className="text-muted text-center">No hay productos favoritos.</p>
+                    <Card className="mx-auto">
+                        <Image src= '/public/StitchFavoritos.png' />
+                        {/* <p className="text-muted text-center">No hay productos favoritos.</p> */}
+                    </Card>
                 ) : (
+
                     productosFavoritos.map((producto) => (
                         <Col key={producto.id}>
                             <Card className="h-100 shadow-sm">
