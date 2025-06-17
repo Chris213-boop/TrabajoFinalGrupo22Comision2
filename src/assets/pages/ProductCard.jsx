@@ -1,8 +1,5 @@
 // Componente para mostrar cada producto en una tarjeta.
-
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
+import {Container, Button, Card, Row, Col, Badge } from 'react-bootstrap';
 
 const DetalleProducto = ({ producto, volver }) => {
     if (!producto) {
@@ -16,31 +13,42 @@ const DetalleProducto = ({ producto, volver }) => {
 
     return (
         <Container>
-            <Card className="mt-4 shadow">
-                <Card.Header className="bg-primary text-white">
-                    <h4>Detalle del Producto</h4>
-                </Card.Header>
-                <Card.Body>
-                    <Card.Img
-                        variant="top"
-                        src={producto.image || "https://via.placeholder.com/150"}
-                        alt={`Imagen de ${producto.title}`}
-                        style={{ width: '150px', height: '150px', objectFit: 'contain', marginBottom: '20px' }}
-                    />
-                    <p><strong>ID:</strong> {producto.id}</p>
-                    <p><strong>Nombre:</strong> {producto.title}</p>
-                    <p><strong>Precio:</strong> ${producto.price}</p>
-                    <p><strong>Descripción:</strong> {producto.description}</p>
-                    <p><strong>Categoría:</strong> {producto.category}</p>
-                    <p><strong>Estado:</strong> {producto.estado}</p>
-                    <p><strong>Favorito:</strong> {producto.favorito ? 'Sí' : 'No'}</p>
+            <Card className="detalle-container">
+                <Row>
+                    <Col md={5} className="d-flex align-items-center justify-content-center">
+                        <Card.Img
+                            src={producto.image || "https://via.placeholder.com/250"}
+                            alt={producto.title}
+                            className="detalle-img"
+                        />
+                    </Col>
+                    <Col md={7}>
+                        <h4 className="detalle-titulo">{producto.title}</h4>
 
-                    <div className="mt-3">
-                        <Button variant="secondary" onClick={volver} className="me-2">
-                            Volver
+                        <div className="detalle-precio">
+                            ${producto.price}
+                            <Badge bg="light" text="success" className="ms-2">5% OFF</Badge>
+                        </div>
+                        <div className="detalle-descuento">
+                            Antes: <s>${(producto.price * 1.05).toFixed(2)}</s>
+                        </div>
+
+                        <div className="detalle-descripcion">
+                            <p><strong>Descripción:</strong> {producto.description}</p>
+                            <p><strong>Categoría:</strong> {producto.category}</p>
+                            <p><strong>Estado:</strong> {producto.estado}</p>
+                            <p><strong>Favorito:</strong> {producto.favorito ? 'Sí' : 'No'}</p>
+                        </div>
+
+                        <Button
+                            variant="outline-secondary"
+                            onClick={volver}
+                            className="detalle-boton"
+                        >
+                            ← Volver
                         </Button>
-                    </div>
-                </Card.Body>
+                    </Col>
+                </Row>
             </Card>
         </Container>
     );

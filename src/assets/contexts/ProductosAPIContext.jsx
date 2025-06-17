@@ -21,7 +21,7 @@ export function ProductosProvider({ children }) {
                 }
                 const data = await response.json();
 
-                //Agrego estado "activo" y favorito "false" por defecto en la lista para que sea funcional
+                //Estado "activo" y favorito "false" por defecto en la lista para que sea funcional
                 const productosConCampos = data.map(producto => ({
                     ...producto,
                     estado: 'activo',
@@ -29,7 +29,7 @@ export function ProductosProvider({ children }) {
                 }));
 
                 setProductos(productosConCampos);
-                
+
             } catch (err) {
                 console.error("Error al cargar productos de la API: ", err);
                 setError("No se pudieron cargar los Productos. Intentelo de nuevo más tarde.");
@@ -64,6 +64,42 @@ export function ProductosProvider({ children }) {
         );
     }, []);
 
+    //////////////////////
+    const buscarProducto = useCallback((valorBusqueda) => {
+        const busquedaNormalizada = valorBusqueda.toLowerCase().trim();
+
+        const encontrados = productos.filter(p =>
+            String(p.id).toLowerCase().includes(busquedaNormalizada) ||
+            (p.title && p.title.toLowerCase().includes(busquedaNormalizada)) ||
+            (p.category && p.category.toLowerCase().includes(busquedaNormalizada))
+        );
+
+        if (encontrados.length === 0) {
+            return { producto: [], estado: 'no-encontrado' };
+        }
+
+        const activos = encontrados.filter(p =>
+            p.estado === 'activo' || p.estado === true
+        );
+
+        if (activos.length === 0) {
+            return { producto: [], estado: 'inactivo' };
+        }
+
+        return { producto: activos, estado: 'activo' };
+    }, [productos]);
+    ///////////////////////////
+
+
+    const modificarProducto = useCallback((productoModificado) => {
+        setProductos(prevProductos =>
+            prevProductos.map(producto =>
+                producto.id === productoModificado.id
+                    ? { ...producto, ...productoModificado }
+                    : producto
+            )
+        );
+    }, []);
 
     const contextValue = useMemo(() => ({ //aqui van todos los recursos que se les va a pasar a los children
         productos,
@@ -72,7 +108,9 @@ export function ProductosProvider({ children }) {
         error,
         eliminarProducto,
         favoritoProducto,
-    }), [productos, isLoading, error, eliminarProducto, favoritoProducto]);
+        buscarProducto,
+        modificarProducto
+    }), [productos, isLoading, error, eliminarProducto, favoritoProducto, buscarProducto, modificarProducto]);
 
     return (
         //ProductosContext.Provider : es un componente funcional, mientras que contextValue es un prop que se le pasa a los hijos de ese componente funcional.

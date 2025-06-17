@@ -1,5 +1,5 @@
 import { Outlet, Link} from 'react-router-dom';
-import { Container, NavDropdown, Nav, Navbar, Row, Col, Button, Image, Card  } from 'react-bootstrap';
+import { Container, NavDropdown, Nav, Navbar, Row, Col, Button, Image, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import useAut from '../hooks/useAut';
 
@@ -14,7 +14,7 @@ function Layout() {
 
     return (
         <>
-            <Navbar expand="lg" className="bg-body-tertiary" >
+            <Navbar expand="lg" className="bg-body-tertiary mb-3" >
                 <Container fluid>
                     <Navbar.Brand>Principal</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
