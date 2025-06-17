@@ -1,0 +1,59 @@
+/*css Creado para añadir estilos personalizados que no se pueden con React Bootstrap.
+/* DetalleProducto.css */
+.detalle-container {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.detalle-img {
+  width: 100%;
+  max-width: 250px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.detalle-img:hover {
+  transform: scale(1.05);
+}
+
+.detalle-titulo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.detalle-precio {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2e7d32;
+}
+
+.detalle-descuento {
+  font-size: 0.95rem;
+  color: #888;
+}
+
+.detalle-descripcion {
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.detalle-boton {
+  margin-top: 1.5rem;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.detalle-boton:hover {
+  background-color: #495057;
+  color: white;
+}

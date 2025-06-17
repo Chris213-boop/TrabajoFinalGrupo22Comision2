@@ -1,6 +1,6 @@
 // Página de Favoritos:
 // Mostrar únicamente los productos que el usuario ha marcado como favoritos.
-import { useProductos } from "../hooks/useProductos"; // Asegurate de tener este hook configurado
+import { useProductos } from "../hooks/useProductos";
 import { Container, Row, Col, Card, Badge, Button, Spinner, Alert } from "react-bootstrap";
 import { useState } from 'react';
 import ProductCard from "../pages/ProductCard"
