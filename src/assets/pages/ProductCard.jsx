@@ -11,6 +11,8 @@ const DetalleProducto = ({ producto, volver }) => {
         );
     }
 
+    const descuento = parseFloat(producto.rating.rate); //convertimos el valor del descuento en numero para poder trabajarlo
+
     return (
         <Container>
             <Card className="detalle-container">
@@ -27,15 +29,17 @@ const DetalleProducto = ({ producto, volver }) => {
 
                         <div className="detalle-precio">
                             ${producto.price}
-                            <Badge bg="light" text="success" className="ms-2">5% OFF</Badge>
+                            <Badge bg="light" text="success" className="ms-2">{producto.rating.rate} OFF</Badge>
                         </div>
                         <div className="detalle-descuento">
-                            Antes: <s>${(producto.price * 1.05).toFixed(2)}</s>
+                            Antes: <s>${(producto.price * descuento).toFixed(2)}</s>
                         </div>
 
                         <div className="detalle-descripcion">
+                            <p><strong>ID:</strong> {producto.id}</p>
                             <p><strong>Descripción:</strong> {producto.description}</p>
                             <p><strong>Categoría:</strong> {producto.category}</p>
+                            <p><strong>Cantidad:</strong> {producto.rating.count}</p>
                             <p><strong>Estado:</strong> {producto.estado}</p>
                             <p><strong>Favorito:</strong> {producto.favorito ? 'Sí' : 'No'}</p>
                         </div>

@@ -61,3 +61,5 @@ Este proyecto es una aplicación web SPA desarrollada con React y Vite, en el ma
 | Vargas, Ana Lucia                        | luciasoraide                           |
 
 
+## Informacion adicional para probar la App:
+- En la carpeta Public se colocaron imagenes extra que sirven para probar el funcionamiento del formulario.
