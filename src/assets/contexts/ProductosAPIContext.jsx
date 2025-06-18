@@ -64,41 +64,25 @@ export function ProductosProvider({ children }) {
         );
     }, []);
 
-    const buscarProducto = useCallback((valorBusqueda) => {
-        const busquedaNormalizada = valorBusqueda.toLowerCase().trim();
+    const buscarProductos = useCallback((productos, texto, filtros) => {
+        const { porId, porNombre, porCategoria } = filtros;
+        const textoMin = texto.toLowerCase();
 
-        const encontrados = productos.filter(p =>
-            String(p.id).toLowerCase().includes(busquedaNormalizada) ||
-            (p.title && p.title.toLowerCase().includes(busquedaNormalizada)) ||
-            (p.category && p.category.toLowerCase().includes(busquedaNormalizada))
-        );
+        return productos.filter((producto) => {
+            const coincideId = porId && producto.id.toString().includes(textoMin);
+            const coincideNombre = porNombre && producto.title.toLowerCase().includes(textoMin);
+            const coincideCategoria = porCategoria && producto.category.toLowerCase().includes(textoMin);
 
-        if (encontrados.length === 0) {
-            return { producto: [], estado: 'no-encontrado' };
-        }
-
-        const activos = encontrados.filter(p =>
-            p.estado === 'activo' || p.estado === true
-        );
-
-        if (activos.length === 0) {
-            return { producto: [], estado: 'inactivo' };
-        }
-
-        return { producto: activos, estado: 'activo' };
-    }, [productos]);
-
-
-    const modificarProducto = useCallback((productoModificado) => {
-        setProductos(prevProductos =>
-            prevProductos.map(producto =>
-                producto.id === productoModificado.id
-                    ? { ...producto, ...productoModificado }
-                    : producto
-            )
-        );
+            return coincideId || coincideNombre || coincideCategoria;
+        });
     }, []);
 
+    const modificarProducto = useCallback((productoActualizado) => {
+        setProductos(prev =>
+            prev.map(p => p.id === productoActualizado.id ? productoActualizado : p)
+        );
+    }, []);
+    
     const contextValue = useMemo(() => ({ //aqui van todos los recursos que se les va a pasar a los children
         productos,
         setProductos,
@@ -106,9 +90,9 @@ export function ProductosProvider({ children }) {
         error,
         eliminarProducto,
         favoritoProducto,
-        buscarProducto,
+        buscarProductos,
         modificarProducto
-    }), [productos, isLoading, error, eliminarProducto, favoritoProducto, buscarProducto, modificarProducto]);
+    }), [productos, isLoading, error, eliminarProducto, favoritoProducto, buscarProductos]);
 
     return (
         //ProductosContext.Provider : es un componente funcional, mientras que contextValue es un prop que se le pasa a los hijos de ese componente funcional.

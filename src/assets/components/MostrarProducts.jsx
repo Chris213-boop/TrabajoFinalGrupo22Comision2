@@ -50,22 +50,14 @@ function MostrarListaProductos() {
                                     </Card.Subtitle>
                                     <Card.Text>
                                         <strong>Precio:</strong> ${producto.price}<br />
-                                        <Button
-                                            variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
-                                            onClick={() => favoritoProducto(producto.id)}
-                                            className="mt-2 me-2"
-                                        >
-                                            {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
-                                        </Button>
 
-                                        {/* Solo visible para ADMINISTRADOR */}
-                                        {isAuthenticated && user?.rol === "ADMINISTRATIVO" && (
+                                        {(isAuthenticated && (user?.rol === "CLIENTE")) && (
                                             <Button
-                                                variant={producto.estado === 'activo' ? 'danger' : 'success'}
-                                                onClick={() => eliminarProducto(producto.id)}
+                                                variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
+                                                onClick={() => favoritoProducto(producto.id)}
                                                 className="mt-2 me-2"
                                             >
-                                                {producto.estado === 'activo' ? 'Eliminar' : 'Reactivar'}
+                                                {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
                                             </Button>
                                         )}
 

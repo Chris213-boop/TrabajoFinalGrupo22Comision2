@@ -6,7 +6,7 @@ import { useProductos } from '../hooks/useProductos';
 import useAut from '../hooks/useAut';
 
 function ProductosEliminados() {
-    const { productos, eliminarProducto, favoritoProducto } = useProductos();
+    const { productos, eliminarProducto } = useProductos();
     const { user, isAuthenticated } = useAut();
 
     const productosEliminados = productos.filter(producto => producto.estado === 'inactivo');
@@ -56,13 +56,6 @@ function ProductosEliminados() {
                                     </Card.Subtitle>
                                     <Card.Text>
                                         <strong>Precio:</strong> ${producto.price}<br />
-                                        <Button
-                                            variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
-                                            onClick={() => favoritoProducto(producto.id)}
-                                            className="mt-2 me-2"
-                                        >
-                                            {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
-                                        </Button>
 
                                         {isAuthenticated && user?.rol === "ADMINISTRATIVO" && (
                                             <Button
