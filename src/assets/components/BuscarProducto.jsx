@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Form, Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
 import { useProductos } from '../hooks/useProductos';
 import useAut from '../hooks/useAut';
+import DetalleProducto from '../pages/ProductCard';
+import ModificarProducto from "../components/ModificarProducto";
 
 function BuscarProducto() {
-  const { productos, favoritoProducto, eliminarProducto } = useProductos();
+  const { productos, favoritoProducto, eliminarProducto, buscarProductos, modificarProducto } = useProductos();
   const [busqueda, setBusqueda] = useState('');
   const { user, isAuthenticated } = useAut();
 
@@ -15,26 +17,49 @@ function BuscarProducto() {
 
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
+  const [productoAModificar, setProductoAModificar] = useState(null);
 
-  if (productoSeleccionado) {
-        return (
-            <ProductCard
-                producto={productoSeleccionado}
-                volver={() => setProductoSeleccionado(null)}
-            />
-        );
-    }
-
-  const filtrarProductos = productos.filter((producto) => {
-    const texto = busqueda.toLowerCase();
-
-    const coincideId = buscarPorId && producto.id.toString().includes(texto);
-    const coincideNombre = buscarPorNombre && producto.title.toLowerCase().includes(texto);
-    const coincideCategoria = buscarPorCategoria && producto.category.toLowerCase().includes(texto);
-
-    return coincideId || coincideNombre || coincideCategoria;
+  const [productoEditando, setProductoEditando] = useState(null);
+  const [formEdit, setFormEdit] = useState({
+    title: '',
+    price: '',
+    category: '',
+    description: ''
   });
 
+
+  if (productoSeleccionado) {
+    return (
+      <DetalleProducto
+        producto={productoSeleccionado}
+        volver={() => setProductoSeleccionado(null)}
+      />
+    );
+  }
+
+  const filtrarProductosResultado = buscarProductos(productos, busqueda, {
+    porId: buscarPorId,
+    porNombre: buscarPorNombre,
+    porCategoria: buscarPorCategoria
+  });
+
+  const abrirModalEditar = (producto) => {
+    setProductoEditando(producto);
+    setFormEdit({
+      title: producto.title,
+      price: producto.price,
+      category: producto.category,
+      description: producto.description
+    });
+  };
+  const guardarCambios = () => {
+    modificarProducto({
+      ...productoEditando,
+      ...formEdit,
+      price: parseFloat(formEdit.price)
+    });
+    setProductoEditando(null); // cerrado del modal
+  };
 
   return (
     <Container className="mt-4">
@@ -42,7 +67,7 @@ function BuscarProducto() {
         <Badge bg="secondary" className="p-2">🔍 Buscar Productos</Badge>
       </h4>
 
-      {/* barra de búsqueda */}
+      {/* Barra */}
       <Form.Group className="mb-3" controlId="barraBusqueda">
         <Form.Control
           type="text"
@@ -79,10 +104,12 @@ function BuscarProducto() {
 
       {/* Resultados */}
       <Row xs={1} md={2} lg={3} className="g-4">
-        {filtrarProductos.length === 0 ? (
+        {filtrarProductosResultado.length === 0 ? (
           <p className="text-muted text-center">No se encontraron productos.</p>
         ) : (
-          filtrarProductos.map((producto) => (
+
+          filtrarProductosResultado.map((producto) => (
+
             <Col key={producto.id}>
               <Card className="h-100 shadow-sm">
                 <Card.Img
@@ -104,13 +131,15 @@ function BuscarProducto() {
                   </Card.Subtitle>
                   <Card.Text>
                     <strong>Precio:</strong> ${producto.price}<br />
-                    <Button
-                      variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
-                      onClick={() => favoritoProducto(producto.id)}
-                      className="mt-2 me-2"
-                    >
-                      {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
-                    </Button>
+                    {(isAuthenticated && (user?.rol === "CLIENTE")) && (
+                      <Button
+                        variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
+                        onClick={() => favoritoProducto(producto.id)}
+                        className="mt-2 me-2"
+                      >
+                        {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
+                      </Button>
+                    )}
 
                     {/* Solo visible para ADMINISTRADOR */}
                     {isAuthenticated && user?.rol === "ADMINISTRATIVO" && (
@@ -131,12 +160,33 @@ function BuscarProducto() {
                       Ver Detalle
                     </Button>
 
+                    {isAuthenticated && user?.rol === "ADMINISTRATIVO" && (
+                      <>
+                        <Button
+                          variant="warning"
+                          onClick={() => setProductoAModificar(producto)}
+                          className="mt-2 me-2"
+                        >
+                          Modificar
+                        </Button>
+                      </>
+                    )}
+
                   </Card.Text>
                 </Card.Body>
               </Card>
             </Col>
           ))
         )}
+
+        {productoAModificar && (
+          <ModificarProducto
+            producto={productoAModificar}
+            onGuardar={modificarProducto}
+            onCerrar={() => setProductoAModificar(null)}
+          />
+        )}
+
       </Row>
     </Container>
   );

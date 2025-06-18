@@ -3,11 +3,9 @@ import { Container, Card, Row, Col, Badge, Button, Image } from 'react-bootstrap
 import { useState } from 'react';
 import ProductCard from './ProductCard';
 import { useProductos } from '../hooks/useProductos';
-import useAut from '../hooks/useAut';
 
 function ProductosFavoritos() {
-    const { productos, eliminarProducto, favoritoProducto } = useProductos();
-    const { user, isAuthenticated } = useAut();
+    const { productos } = useProductos();
 
     const productosFavoritos = productos.filter(
         producto => producto.favorito === true
@@ -59,24 +57,7 @@ function ProductosFavoritos() {
                                     </Card.Subtitle>
                                     <Card.Text>
                                         <strong>Precio:</strong> ${producto.price}<br />
-                                        
-                                        <Button
-                                            variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
-                                            onClick={() => favoritoProducto(producto.id)}
-                                            className="mt-2 me-2"
-                                        >
-                                            {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
-                                        </Button>
 
-                                        {isAuthenticated && user?.rol === "ADMINISTRATIVO" && (
-                                            <Button
-                                                variant={producto.estado === 'activo' ? 'danger' : 'success'}
-                                                onClick={() => eliminarProducto(producto.id)}
-                                                className="mt-2 me-2"
-                                            >
-                                                {producto.estado === 'activo' ? 'Eliminar' : 'Reactivar'}
-                                            </Button>
-                                        )}
                                     </Card.Text>
                                     <Button
                                         variant="info"

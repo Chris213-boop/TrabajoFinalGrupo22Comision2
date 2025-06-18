@@ -32,8 +32,6 @@ function Layout() {
                             {isAuthenticated && user?.rol === "ADMINISTRATIVO" && (
                                 <NavDropdown title="Administrar Productos" id="admin-nav-dropdown">
                                     <NavDropdown.Item as={Link} to="#agregar">Agregar Producto</NavDropdown.Item>
-                                    <NavDropdown.Item as={Link} to="#modificar">Modificar Producto</NavDropdown.Item>
-                                    <NavDropdown.Item as={Link} to="#eliminar">Eliminar Producto</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="/eliminados">Productos Eliminados</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="/prodFav">Favoritos</NavDropdown.Item>
 
