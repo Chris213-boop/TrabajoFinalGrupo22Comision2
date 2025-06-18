@@ -11,6 +11,7 @@ import ProductosEliminados from "../pages/ProductosEliminados";
 import ProductosFavoritos from '../pages/ProductosFavoritos';
 import MostrarListaProductos from '../components/MostrarProducts';
 import ProtectorRutas from '../components/ProtectorRutas';
+import FormularioProducto from '../components/AgregarProducto';
 
 function Rutas() {
     return (
@@ -25,11 +26,16 @@ function Rutas() {
                     <Route path="/favoritos" element={<Favoritos />} />
                     <Route path="/eliminados" element={
                         <ProtectorRutas rolesPermitidos={['ADMINISTRATIVO']}>
-                        <ProductosEliminados />
+                            <ProductosEliminados />
                         </ProtectorRutas>
                         } />
                     <Route path="/prodFav" element={<ProductosFavoritos />} />
                     <Route path="/buscar" element={<BuscarProducto />} />
+                    <Route path="/agregar" element={
+                        <ProtectorRutas rolesPermitidos={['ADMINISTRATIVO']}>
+                            <FormularioProducto/>
+                        </ProtectorRutas>
+                        } />
                     <Route path="*" element = {<Error/>} />
                 </Route>
             </Routes>
