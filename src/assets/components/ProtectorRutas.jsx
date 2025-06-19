@@ -1,7 +1,6 @@
 import { Navigate, replace } from "react-router-dom";
 import useAut from "../hooks/useAut";
 import { Spinner, Container } from "react-bootstrap";
-import { Children } from "react";
 
 //Componente para proteger rutas basadas en autenticación y roles
 

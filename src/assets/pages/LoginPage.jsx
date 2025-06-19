@@ -1,13 +1,16 @@
 import { Alert, Button, Container, Form, Card } from "react-bootstrap";
 import useLogin from "../hooks/useLogin";
-import useValidacionProducto from "../hooks/useValidacionProducto";
+import useValidacionFormulario from "../hooks/useValidacionProducto";
 
 function LoginPage() {
     const { username, setUsername, password, setPassword, loginError, Enviar } = useLogin();
-    const { esValido, tocado, marcarTocado } = useValidacionProducto({
+
+    const campos = {
         username,
-        password
-    });
+        password,
+    }
+    
+    const { esValido, tocado, marcarTocado } = useValidacionFormulario(campos, 'usuario');
 
     return (
         <Container>
