@@ -1,24 +1,59 @@
 import { useState } from "react";
-import {Form, Button, Container} from 'react-bootstrap';
+import { Form, Button, Container, Alert } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 import { useProductos } from "../hooks/useProductos";
+import useValidacionFormulario from "../hooks/useValidacionProducto";
 
 function FormularioProducto() {
-    const {agregarProducto} = useProductos();
+    const { agregarProducto } = useProductos();
     const [title, setTitle] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState(0);
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [rate, setRate] = useState(0);
     const [count, setCount] = useState(0);
     const [image, setImage] = useState(null); // imagen como archivo
     const [preview, setPreview] = useState(null); // URL para previsualización
+    const [mensajeError, setMensajeError] = useState(''); // para controlar que se llenen los campos
+    const navigate = useNavigate();
+
+    const campos = {
+        title,
+        price,
+        description,
+        category,
+        rating: {
+            rate,
+            count,
+        },
+    };
+
+    const { esValido, tocado, marcarTocado } = useValidacionFormulario(campos, 'producto');
 
     const manejarEnvio = (e) => {
         e.preventDefault();
 
-        if (title.trim() === '' || price.trim() === '' || !image) return ;//validaciones
+        // Marcar todos como tocados para proceder con la validacion
+        Object.keys(campos).forEach((campo) => marcarTocado(campo));
 
-        agregarProducto ({
+        // Validar cada campo
+        let formularioValido = true;
+        for (let campo in esValido) {
+            if (!esValido[campo]) {
+                formularioValido = false;
+                break;
+            }
+        }
+
+        // Verifica si hay imagen
+        if (!formularioValido || !image) {
+            setMensajeError('⚠️ Faltan completar algunos campos correctamente.');
+            return;
+        }
+
+        setMensajeError('');
+
+        agregarProducto({
             title,
             price: parseFloat(price),
             description,
@@ -32,13 +67,15 @@ function FormularioProducto() {
 
         //Para limpiar
         setTitle('');
-        setPrice('');
+        setPrice(0);
         setDescription('');
         setCategory('');
         setRate(0);
         setCount(0);
         setImage(null);
         setPreview(null);
+
+        navigate('/productos');
     };
 
     // Manejador para seleccionar imagen
@@ -53,59 +90,87 @@ function FormularioProducto() {
     return (
         <Container className="mt-4">
             <h4>Agregar Producto</h4>
-            <Form onSubmit={manejarEnvio}>
+            <Form onSubmit={manejarEnvio} noValidate>
                 <Form.Group controlId="formTitle">
                     <Form.Label> Nombre del producto: </Form.Label>
                     <Form.Control
-                    type="text"
-                    placeholder="camisa"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                        type="text"
+                        placeholder="camisa"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        onBlur={() => marcarTocado("title")}
+                        isValid={tocado.title && esValido.title}
+                        isInvalid={tocado.title && !esValido.title}
+                        required
                     />
                 </Form.Group>
                 <Form.Group controlId="formPrice">
                     <Form.Label> Precio del producto: </Form.Label>
                     <Form.Control
-                    type="number"
-                    placeholder="$50"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
+                        type="number"
+                        placeholder="$50"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        onBlur={() => marcarTocado("price")}
+                        isValid={tocado.price && esValido.price}
+                        isInvalid={tocado.price && !esValido.price}
+                        required
                     />
                 </Form.Group>
                 <Form.Group controlId="formDescription">
                     <Form.Label> Descripción: </Form.Label>
                     <Form.Control
-                    type="text"
-                    placeholder="ej: Mochila Azul con cierre lateral y 3 bolsillos"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                        type="text"
+                        placeholder="ej: Mochila Azul con cierre lateral y 3 bolsillos"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        onBlur={() => marcarTocado("description")}
+                        isValid={tocado.description && esValido.description}
+                        isInvalid={tocado.description && !esValido.description}
+                        required
                     />
                 </Form.Group>
                 <Form.Group controlId="formCategory">
                     <Form.Label> Categoría: </Form.Label>
-                    <Form.Control
-                    type="text"
-                    placeholder="ej: Ropa Masculina "
+                    <Form.Select
+                    aria-label="Seleccione una categoría: "
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    />
+                    onBlur={() => marcarTocado("category")}
+                    isValid={tocado.category && esValido.category}
+                    isInvalid={tocado.category && !esValido.category}
+                    required>
+                        <option>Categoría: </option>
+                        <option value="men's clothing">men's clothing</option>
+                        <option value="jewelery">jewelery</option>
+                        <option value="electronics">electronics</option>
+                        <option value="women's clothing">women's clothing</option>
+                    </Form.Select>
                 </Form.Group>
                 <Form.Group controlId="formRate">
                     <Form.Label> Descuento: </Form.Label>
                     <Form.Control
-                    type="number"
-                    placeholder="ej: 80"
-                    value={rate}
-                    onChange={(e) => setRate(Number(e.target.value))}
+                        type="number"
+                        placeholder="ej: 80"
+                        value={rate}
+                        onChange={(e) => setRate(Number(e.target.value))}
+                        onBlur={() => marcarTocado("rate")}
+                        isValid={tocado.rate && esValido.rate}
+                        isInvalid={tocado.rate && !esValido.rate}
+                        required
                     />
                 </Form.Group>
                 <Form.Group controlId="formCount">
                     <Form.Label> Cantidad: </Form.Label>
                     <Form.Control
-                    type="number"
-                    placeholder="ej: 80"
-                    value={count}
-                    onChange={(e) => setCount(Number(e.target.value))}
+                        type="number"
+                        placeholder="ej: 80"
+                        value={count}
+                        onChange={(e) => setCount(Number(e.target.value))}
+                        onBlur={() => marcarTocado("count")}
+                        isValid={tocado.count && esValido.count}
+                        isInvalid={tocado.count && !esValido.count}
+                        required
                     />
                 </Form.Group>
                 <Form.Group controlId="formImage" className="mt-3">
@@ -125,6 +190,9 @@ function FormularioProducto() {
                             className="imagen-preview"
                         />
                     </Container>
+                )}
+                {mensajeError && (
+                    <Alert variant="warning" className="mt-2">{mensajeError}</Alert>
                 )}
                 <Button className="mt-3" variant="primary" type="submit">
                     Agregar
