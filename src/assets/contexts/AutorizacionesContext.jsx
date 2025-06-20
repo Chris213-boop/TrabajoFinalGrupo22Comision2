@@ -1,54 +1,75 @@
-import { createContext, useState,useMemo, useCallback } from "react";
+// Archivo: src/assets/contexts/AutorizacionesContext.jsx (Versión Final con LocalStorage)
 
+import {
+  createContext,
+  useState,
+  useMemo,
+  useCallback,
+  useEffect,
+} from "react";
 import usersData from "../data/usuarios.json";
 
 export const AutContext = createContext(null);
 
-export function AutProvider ({children}) {
-    const [user, setUser] = useState(null); //usuario que en primera instancia es null
+export function AutProvider({ children }) {
+  const initialUser = JSON.parse(localStorage.getItem("user"));
 
-    //con la intencion de pensar en cargas asincronicas de datos o validaciones
-    const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState(initialUser);
+  const [isLoading, setIsLoading] = useState(false); // Cambiaremos esto en un momento
 
-    // definimos la funcion login
-    const login = useCallback((credentials) => {
-        setIsLoading(true) ; //se activa brevemente, luego se desactiva
-        try {
-            const usuarioEncontrado = usersData.find(
-                u => u.username === credentials.username && u.password === credentials.password
-            );
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
+    }
+  }, [user]);
 
-            if (usuarioEncontrado) {
-                const {password, ...userWithoutPassword } = usuarioEncontrado; // Quitamos el password
-                setUser (userWithoutPassword);
-                setIsLoading (false); //desactivar carga aqui
-                return {success: true }; // retorna exito inmediatamente
-            } else {
-                setUser(null);
-                setIsLoading (false);
-                return { success: false, message: "Credenciales inválidas. Por favor, verifica tu usuario y contraseña "}
-            }
-        } catch (error ) {
-            console.error("Login failes due to unexpected error: ", error.message);
-            setUser(null);
-            setIsLoading(false);
-            return {success: false, message: "Ocurrio un error inesperado durante el login"}
-        }
-    }, []);
-    const logout = useCallback(() => {
+  const login = useCallback((credentials) => {
+    setIsLoading(true);
+    try {
+      const usuarioEncontrado = usersData.find(
+        (u) =>
+          u.username === credentials.username &&
+          u.password === credentials.password
+      );
+
+      if (usuarioEncontrado) {
+        const { password, ...userWithoutPassword } = usuarioEncontrado;
+        setUser(userWithoutPassword);
+        setIsLoading(false);
+        return { success: true };
+      } else {
         setUser(null);
-    }, []);
-    const autContextValue = useMemo (() => ({
-        user,
-        isAuthenticated : !!user,
-        isLoading,
-        login,
-        logout,
-}), [user, isLoading, login, logout]);
-    //Proveer el valor del contexto a los hijos
-    return (
-        <AutContext.Provider value = {autContextValue}>
-            {children}
-        </AutContext.Provider>
-    );
+        setIsLoading(false);
+        return { success: false, message: "Credenciales inválidas..." };
+      }
+    } catch (error) {
+      console.error("Login failed:", error.message);
+      setUser(null);
+      setIsLoading(false);
+      return { success: false, message: "Ocurrió un error inesperado..." };
+    }
+  }, []);
+
+  const logout = useCallback(() => {
+    setUser(null);
+  }, []);
+
+  const autContextValue = useMemo(
+    () => ({
+      user,
+      isAuthenticated: !!user,
+      isLoading,
+      login,
+      logout,
+    }),
+    [user, isLoading, login, logout]
+  );
+
+  return (
+    <AutContext.Provider value={autContextValue}>
+      {children}
+    </AutContext.Provider>
+  );
 }
