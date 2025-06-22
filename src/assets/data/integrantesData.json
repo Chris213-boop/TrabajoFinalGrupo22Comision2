@@ -1,0 +1,52 @@
+[
+  {
+    "nombre": "Torres Pablo Gabriel",
+    "email": "pablot405@gmail.com",
+    "ciudad": "Jujuy",
+    "dni": "42453996",
+    "lu": "",
+    "facultad": "Facultad de Ingeniería",
+    "imagenSrc": "PabloGabriel.jpg",
+    "altText": "Torres, Pablo"
+  },
+  {
+    "nombre": "Torres Cintia Cristina",
+    "email": "cctorres213@gmail.com",
+    "ciudad": "Jujuy",
+    "dni": "46472499",
+    "lu": "",
+    "facultad": "Facultad de Ingeniería",
+    "imagenSrc": "CintiaCristina.jpg",
+    "altText": "Torres, Cintia"
+  },
+  {
+    "nombre": "Pedro Dardo Ramón Cayo",
+    "email": "P.D.R.C@hotmail.com",
+    "ciudad": "Jujuy",
+    "dni": "4481598",
+    "lu": "",
+    "facultad": "Otras",
+    "imagenSrc": "PedroCayo.jpg",
+    "altText": "Cayo, Pedro"
+  },
+  {
+    "nombre": "Ana Lucia Vargas Soraide",
+    "email": "luciavargasjujuy@gmail.com",
+    "ciudad": "Jujuy",
+    "dni": "47439614",
+    "lu": "",
+    "facultad": "Escuela de Minas “Dr. Horacio Carrillo”",
+    "imagenSrc": "AnaLucia.jpg",
+    "altText": "Vargas Soraide, Ana"
+  },
+  {
+    "nombre": "Maximiliano Leandro Cayetano Antenor",
+    "email": "maxiantenor000@gmail.com",
+    "ciudad": "Jujuy",
+    "dni": "43939944",
+    "lu": "",
+    "facultad": "Facultad de Ingeniería",
+    "imagenSrc": "Maximiliano.jpg",
+    "altText": "Antenor, Maximiliano"
+  }
+]
