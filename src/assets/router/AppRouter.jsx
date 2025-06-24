@@ -13,6 +13,7 @@ import MostrarListaProductos from "../components/MostrarProducts";
 import ProtectorRutas from "../components/ProtectorRutas";
 import FormularioProducto from "../components/AgregarProducto";
 import NoAutorizado from "../pages/NoAutorizado";
+import VistaSuscripciones from "../pages/VistaSuscripciones";
 
 function Rutas() {
   return (
@@ -40,6 +41,14 @@ function Rutas() {
             element={
               <ProtectorRutas rolesPermitidos={["ADMINISTRATIVO"]}>
                 <FormularioProducto />
+              </ProtectorRutas>
+            }
+          />
+          <Route
+            path="/admin/suscripciones"
+            element={
+              <ProtectorRutas rolesPermitidos={["ADMINISTRATIVO"]}>
+                <VistaSuscripciones />
               </ProtectorRutas>
             }
           />
