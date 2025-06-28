@@ -28,11 +28,11 @@ const DetalleProducto = ({ producto, volver }) => {
                         <h4 className="detalle-titulo">{producto.title}</h4>
 
                         <div className="detalle-precio">
-                            ${producto.price}
-                            <Badge bg="light" text="success" className="ms-2">{producto.rating.rate} OFF</Badge>
+                            ${(producto.price * (1 - descuento / 100)).toFixed(2)}
+                            <Badge bg="light" text="success" className="ms-2">{producto.rating.rate} % OFF</Badge>
                         </div>
                         <div className="detalle-descuento">
-                            Antes: <s>${(producto.price * descuento).toFixed(2)}</s>
+                            Antes: <s>${(producto.price).toFixed(2)}</s>
                         </div>
 
                         <div className="detalle-descripcion">

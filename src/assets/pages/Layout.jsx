@@ -1,15 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
-import {
-  Container,
-  NavDropdown,
-  Nav,
-  Navbar,
-  Row,
-  Col,
-  Button,
-  Image,
-  Card,
-} from "react-bootstrap";
+import {Container,NavDropdown,Nav,Navbar,Row,Col,Button,Image,Card} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useAut from "../hooks/useAut";
 import { useState } from "react";
@@ -35,8 +25,8 @@ function Layout() {
 
   return (
     <>
-      <Navbar expand="lg" className="bg-body-tertiary mb-3">
-        <Container fluid>
+      <Navbar expand="lg" className="navbar mb-3">
+        <Container fluid className="fw-bold">
           <Navbar.Brand>Principal</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -111,7 +101,7 @@ function Layout() {
         <Outlet></Outlet>
       </section>
 
-      <Card.Footer className="text-muted bg-light p-4 mt-5">
+      <Card.Footer className="text-muted p-4 mt-5">
         <Row className="text-center mb-4">
           <Col md={4}>
             <h6>🚚 ENVÍOS A TODO EL PAÍS</h6>
@@ -186,9 +176,8 @@ function Layout() {
         </Row>
         <Row className="text-center mt-3">
           <Col>
-            © StyleScript -G22- 2025. Todos los derechos reservados.
-            <br />
-            Hecho con 💻 y 💎 para que brilles más.
+            <p> © StyleScript -G22- 2025. Todos los derechos reservados.</p>
+            <p>Hecho con 💻 y 💎 para que brilles más.</p>
           </Col>
         </Row>
       </Card.Footer>
