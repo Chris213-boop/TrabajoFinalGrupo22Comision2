@@ -103,6 +103,9 @@ function FormularioProducto() {
                         isInvalid={tocado.title && !esValido.title}
                         required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        Debe ingresar al menos 3 letras. No se permiten números.
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formPrice">
                     <Form.Label> Precio del producto: </Form.Label>
@@ -116,6 +119,9 @@ function FormularioProducto() {
                         isInvalid={tocado.price && !esValido.price}
                         required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        El precio debe ser un número positivo. No se permiten letras ni valores negativos.
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formDescription">
                     <Form.Label> Descripción: </Form.Label>
@@ -129,23 +135,29 @@ function FormularioProducto() {
                         isInvalid={tocado.description && !esValido.description}
                         required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        La descripción debe tener al menos 10 caracteres y no pueden ser solo números o símbolos.
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formCategory">
                     <Form.Label> Categoría: </Form.Label>
                     <Form.Select
-                    aria-label="Seleccione una categoría: "
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    onBlur={() => marcarTocado("category")}
-                    isValid={tocado.category && esValido.category}
-                    isInvalid={tocado.category && !esValido.category}
-                    required>
+                        aria-label="Seleccione una categoría: "
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        onBlur={() => marcarTocado("category")}
+                        isValid={tocado.category && esValido.category}
+                        isInvalid={tocado.category && !esValido.category}
+                        required>
                         <option>Categoría: </option>
                         <option value="men's clothing">men's clothing</option>
                         <option value="jewelery">jewelery</option>
                         <option value="electronics">electronics</option>
                         <option value="women's clothing">women's clothing</option>
                     </Form.Select>
+                    <Form.Control.Feedback type="invalid">
+                        Debe seleccionar una categoría válida.
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formRate">
                     <Form.Label> Descuento: </Form.Label>
@@ -159,6 +171,9 @@ function FormularioProducto() {
                         isInvalid={tocado.rate && !esValido.rate}
                         required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        El descuento debe ser un número entre 0 y 100. No se permiten valores negativos ni mayores a 100.
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formCount">
                     <Form.Label> Cantidad: </Form.Label>
@@ -172,6 +187,9 @@ function FormularioProducto() {
                         isInvalid={tocado.count && !esValido.count}
                         required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        La cantidad debe ser un número entero positivo.
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formImage" className="mt-3">
                     <Form.Label>Imagen del producto</Form.Label>

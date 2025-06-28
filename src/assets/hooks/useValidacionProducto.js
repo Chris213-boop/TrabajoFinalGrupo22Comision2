@@ -18,14 +18,15 @@ function useValidacionFormulario(campos, tipoFormulario) {
     password: tieneLongitud(campos.password, 3),
   });
 
-  const esNumeroValido = (valor) => !isNaN(valor) && Number(valor) >= 0;
+  const esNumeroValido = (valor) => !isNaN(valor) && Number(valor) > 0;
 
   const validarProducto = () => ({
     title: tieneLongitud(campos.title, 3) && soloLetras(campos.title),
     price: esNumeroValido(campos.price, 1),
-    description: tieneLongitud(campos.description, 5) && soloLetras(campos.description),
+    description: tieneLongitud(campos.description, 10) &&
+    /[A-Za-zÁÉÍÓÚáéíóúñÑ]/.test(campos.description),
     category: campos.category !== "",
-    rate: esNumeroValido(campos.rating.rate, 1),
+    rate: Number(campos.rating.rate) >= 0 && Number(campos.rating.rate) <= 100,
     count: esNumeroValido(campos.rating.count, 1),
   });
 

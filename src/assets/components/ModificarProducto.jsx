@@ -1,4 +1,3 @@
-
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 
@@ -32,7 +31,7 @@ function ModificarProducto({ producto, onGuardar, onCerrar }) {
             ...form,
             price: parseFloat(form.price)
         });
-        onCerrar(); // cerrarado del modal luego de guardar
+        onCerrar(); // cerrado del modal luego de guardar
     };
 
     return (

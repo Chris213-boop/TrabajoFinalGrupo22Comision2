@@ -14,6 +14,7 @@ import ProtectorRutas from "../components/ProtectorRutas";
 import FormularioProducto from "../components/AgregarProducto";
 import NoAutorizado from "../pages/NoAutorizado";
 import VistaSuscripciones from "../pages/VistaSuscripciones";
+import Registro from "../components/Registro";
 
 function Rutas() {
   return (
@@ -53,6 +54,7 @@ function Rutas() {
             }
           />
           <Route path="/no-autorizado" element={<NoAutorizado />} />
+          <Route path="/registro" element={<Registro/>} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

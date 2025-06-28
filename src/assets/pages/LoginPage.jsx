@@ -1,6 +1,7 @@
-import { Alert, Button, Container, Form, Card } from "react-bootstrap";
+import { Alert, Button, Container, Form, Card} from "react-bootstrap";
 import useLogin from "../hooks/useLogin";
 import useValidacionFormulario from "../hooks/useValidacionProducto";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
     const { username, setUsername, password, setPassword, loginError, Enviar } = useLogin();
@@ -9,18 +10,20 @@ function LoginPage() {
         username,
         password,
     }
-    
+
     const { esValido, tocado, marcarTocado } = useValidacionFormulario(campos, 'usuario');
 
     return (
         <Container>
             <Card className="login-card">
-                <div className="emoji-lock">🔐</div>
+                <div className="img-fluid emoji-lock logo">
+                    <img src="login.png" alt="contraseña.gif" />{/*🔐*/}
+                </div>
                 <Card.Body>
                     <Card.Title> Iniciar Sesion</Card.Title>
                     <Form onSubmit={Enviar} noValidate>
                         <Form.Group>
-                            <Form.Label>👤 Usuario </Form.Label>
+                            <Form.Label> 👤 Usuario </Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="Ingresa tu usuario"
@@ -55,6 +58,10 @@ function LoginPage() {
                             </Alert>
                         )}
                         <Button type="submit">🚀 Entrar</Button>
+                        <p className="text-center mt-3">
+                            ¿No tenés una cuenta? 
+                            <Link to="/registro"> Registrarse</Link>
+                        </p>
                     </Form>
                 </Card.Body>
             </Card>

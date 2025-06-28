@@ -1,4 +1,3 @@
-import React from "react";
 import { useSuscripciones } from "../hooks/useSuscripciones";
 import { Container, Card, ListGroup, Badge } from "react-bootstrap";
 

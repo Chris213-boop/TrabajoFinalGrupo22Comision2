@@ -5,7 +5,7 @@ import { Container, Card, Carousel} from 'react-bootstrap';
 const Home = () => {
     return (
         <Container fluid>
-            <Card className="text-center">
+            <Card className="text-center home">
                 <Card.Body>
                     <Card.Title>
                         ¡Hola, mente creativa!
@@ -35,7 +35,7 @@ const Home = () => {
                         </Carousel.Item>
                     </Carousel>
                 </Card.Body>
-                <MostrarProductos/> {/*solo para prueba*/}
+                <MostrarProductos/>
             </Card>
         </Container>
     )
