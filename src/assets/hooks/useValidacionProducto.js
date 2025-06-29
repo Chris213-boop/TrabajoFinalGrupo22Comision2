@@ -12,9 +12,14 @@ function useValidacionFormulario(campos, tipoFormulario) {
     typeof texto === "string" && texto.trim().length >= min;
 
   const esValido = {};
+  const esEmailValido = (email) => {
+    if (!email) return false;
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
 
   const validarUsuario = () => ({
-    username: tieneLongitud(campos.username, 3) && campos.username,
+    username: esEmailValido(campos.username),
     password: tieneLongitud(campos.password, 3),
   });
 
