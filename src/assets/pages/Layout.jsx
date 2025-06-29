@@ -1,5 +1,15 @@
 import { Outlet, Link } from "react-router-dom";
-import {Container,NavDropdown,Nav,Navbar,Row,Col,Button,Image,Card} from "react-bootstrap";
+import {
+  Container,
+  NavDropdown,
+  Nav,
+  Navbar,
+  Row,
+  Col,
+  Button,
+  Image,
+  Card,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useAut from "../hooks/useAut";
 import { useState } from "react";
@@ -66,6 +76,9 @@ function Layout() {
                   <NavDropdown.Item as={Link} to="/prodFav">
                     Favoritos
                   </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/perfil">
+                    Mi Perfil
+                  </NavDropdown.Item>
                 </NavDropdown>
               )}
               {isAuthenticated && user?.rol === "CLIENTE" && (
@@ -73,7 +86,7 @@ function Layout() {
                   <NavDropdown.Item as={Link} to="/favoritos">
                     Favoritos
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="#/perfil">
+                  <NavDropdown.Item as={Link} to="/perfil">
                     Mi Perfil
                   </NavDropdown.Item>
                 </NavDropdown>

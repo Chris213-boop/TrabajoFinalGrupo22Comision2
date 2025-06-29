@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 function useValidacionFormulario(campos, tipoFormulario) {
   const [tocado, setTocado] = useState({});
@@ -8,13 +8,18 @@ function useValidacionFormulario(campos, tipoFormulario) {
   };
 
   const soloLetras = (texto) => /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(texto.trim());
-  const tieneLongitud = (texto, min) => typeof texto === 'string' && texto.trim().length >= min;
-
+  const tieneLongitud = (texto, min) =>
+    typeof texto === "string" && texto.trim().length >= min;
 
   const esValido = {};
+  const esEmailValido = (email) => {
+    if (!email) return false;
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
 
   const validarUsuario = () => ({
-    username: tieneLongitud(campos.username, 3) && soloLetras(campos.username),
+    username: esEmailValido(campos.username),
     password: tieneLongitud(campos.password, 3),
   });
 
@@ -23,21 +28,21 @@ function useValidacionFormulario(campos, tipoFormulario) {
   const validarProducto = () => ({
     title: tieneLongitud(campos.title, 3) && soloLetras(campos.title),
     price: esNumeroValido(campos.price, 1),
-    description: tieneLongitud(campos.description, 10) &&
-    /[A-Za-zÁÉÍÓÚáéíóúñÑ]/.test(campos.description),
+    description:
+      tieneLongitud(campos.description, 10) &&
+      /[A-Za-zÁÉÍÓÚáéíóúñÑ]/.test(campos.description),
     category: campos.category !== "",
     rate: Number(campos.rating.rate) >= 0 && Number(campos.rating.rate) <= 100,
     count: esNumeroValido(campos.rating.count, 1),
   });
 
   let validaciones = {};
-  if (tipoFormulario === 'usuario') {
+  if (tipoFormulario === "usuario") {
     validaciones = validarUsuario();
   }
-  if (tipoFormulario === 'producto') {
+  if (tipoFormulario === "producto") {
     validaciones = validarProducto();
   }
-
 
   return {
     esValido: validaciones,

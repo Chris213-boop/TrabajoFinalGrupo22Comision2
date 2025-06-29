@@ -15,6 +15,7 @@ import FormularioProducto from "../components/AgregarProducto";
 import NoAutorizado from "../pages/NoAutorizado";
 import VistaSuscripciones from "../pages/VistaSuscripciones";
 import Registro from "../components/Registro";
+import MiPerfil from "../pages/Miperfil";
 
 function Rutas() {
   return (
@@ -53,8 +54,16 @@ function Rutas() {
               </ProtectorRutas>
             }
           />
+          <Route
+            path="/perfil"
+            element={
+              <ProtectorRutas rolesPermitidos={["ADMINISTRATIVO", "CLIENTE"]}>
+                <MiPerfil />
+              </ProtectorRutas>
+            }
+          />
           <Route path="/no-autorizado" element={<NoAutorizado />} />
-          <Route path="/registro" element={<Registro/>} />
+          <Route path="/registro" element={<Registro />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>
