@@ -2,14 +2,12 @@ import { Container, Card, Row, Col, Badge, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import ProductCard from '../pages/ProductCard';
 import { useProductos } from '../hooks/useProductos';
-import useAut from '../hooks/useAut';
 
 function MostrarListaProductos() {
-    //aqui consumimos los Productos y las funciones agregar, modificar, etc.
-    const { productos, agregarProducto, eliminarProducto, favoritoProducto } = useProductos();
-    const { user, isAuthenticated } = useAut();
-
+    const { productos, favoritoProducto } = useProductos();
     const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+
+    const productosActivos = productos.filter(producto => producto.estado === "activo");
 
     if (productoSeleccionado) {
         return (
@@ -19,16 +17,17 @@ function MostrarListaProductos() {
             />
         );
     }
+
     return (
         <Container className="mt-4">
             <h4 className="text-center mb-3">
                 <Badge bg="info" className="p-2">📦 Productos</Badge>
             </h4>
             <Row xs={1} md={2} lg={3} className="g-4">
-                {productos.length === 0 ? (
+                {productosActivos.length === 0 ? (
                     <p className="text-muted text-center">No hay productos disponibles.</p>
                 ) : (
-                    productos.map((producto) => (
+                    productosActivos.map((producto) => (
                         <Col key={producto.id}>
                             <Card className="h-100 shadow-sm">
                                 <Card.Img
@@ -50,17 +49,13 @@ function MostrarListaProductos() {
                                     </Card.Subtitle>
                                     <Card.Text>
                                         <strong>Precio:</strong> ${producto.price}<br />
-
-                                        {(isAuthenticated && (user?.rol === "CLIENTE")) && (
-                                            <Button
-                                                variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
-                                                onClick={() => favoritoProducto(producto.id)}
-                                                className="mt-2 me-2"
-                                            >
-                                                {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
-                                            </Button>
-                                        )}
-
+                                        <Button
+                                            variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
+                                            onClick={() => favoritoProducto(producto.id)}
+                                            className="mt-2 me-2"
+                                        >
+                                            {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
+                                        </Button>
                                     </Card.Text>
                                     <Button
                                         variant="info"
@@ -77,7 +72,7 @@ function MostrarListaProductos() {
             </Row>
         </Container>
     );
-
 }
 
 export default MostrarListaProductos;
+
