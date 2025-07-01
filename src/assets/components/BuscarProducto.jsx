@@ -131,15 +131,14 @@ function BuscarProducto() {
                   </Card.Subtitle>
                   <Card.Text>
                     <strong>Precio:</strong> ${producto.price}<br />
-                    {(isAuthenticated && (user?.rol === "CLIENTE")) && (
-                      <Button
+
+                    <Button
                         variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
                         onClick={() => favoritoProducto(producto.id)}
                         className="mt-2 me-2"
                       >
-                        {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
-                      </Button>
-                    )}
+                        {producto.favorito ? '💔' : '❤️'}
+                    </Button>
 
                     {/* Solo visible para ADMINISTRADOR */}
                     {isAuthenticated && user?.rol === "ADMINISTRATIVO" && (

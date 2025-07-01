@@ -1,28 +1,37 @@
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import useValidacionFormulario from '../hooks/useValidacionProducto';
 
 function ModificarProducto({ producto, onGuardar, onCerrar }) {
     const [form, setForm] = useState({
         title: '',
         price: '',
         category: '',
-        description: ''
+        description: '',
+        rating: { rate: 0, count: 1 }
     });
 
     useEffect(() => {
         if (producto) {
             setForm({
-                title: producto.title,
-                price: producto.price,
-                category: producto.category,
-                description: producto.description
+                ...producto,
+                rating: producto.rating || { rate: 0, count: 1 }
             });
         }
     }, [producto]);
 
+    const { esValido, marcarTocado, tocado } = useValidacionFormulario(form, 'producto');
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
+        setForm((prev) => ({
+            ...prev,
+            [name]: name === 'price' ? value : value
+        }));
+    };
+
+    const handleBlur = (e) => {
+        marcarTocado(e.target.name);
     };
 
     const handleSubmit = () => {
@@ -33,6 +42,8 @@ function ModificarProducto({ producto, onGuardar, onCerrar }) {
         });
         onCerrar(); // cerrado del modal luego de guardar
     };
+
+    const formularioEsValido = Object.values(esValido).every(Boolean);
 
     return (
         <Modal show onHide={onCerrar}>
@@ -48,7 +59,12 @@ function ModificarProducto({ producto, onGuardar, onCerrar }) {
                             name="title"
                             value={form.title}
                             onChange={handleChange}
+                            onBlur={handleBlur}
+                            isInvalid={tocado.title && !esValido.title}
                         />
+                        <Form.Control.Feedback type="invalid">
+                            El título debe tener al menos 3 letras y solo letras.
+                        </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3">
@@ -58,7 +74,12 @@ function ModificarProducto({ producto, onGuardar, onCerrar }) {
                             name="price"
                             value={form.price}
                             onChange={handleChange}
+                            onBlur={handleBlur}
+                            isInvalid={tocado.price && !esValido.price}
                         />
+                        <Form.Control.Feedback type="invalid">
+                            El precio debe ser un número mayor a 0.
+                        </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3">
@@ -68,7 +89,12 @@ function ModificarProducto({ producto, onGuardar, onCerrar }) {
                             name="category"
                             value={form.category}
                             onChange={handleChange}
+                            onBlur={handleBlur}
+                            isInvalid={tocado.category && !esValido.category}
                         />
+                        <Form.Control.Feedback type="invalid">
+                            La categoría no puede estar vacía.
+                        </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3">
@@ -78,8 +104,13 @@ function ModificarProducto({ producto, onGuardar, onCerrar }) {
                             name="description"
                             value={form.description}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             rows={3}
+                            isInvalid={tocado.description && !esValido.description}
                         />
+                        <Form.Control.Feedback type="invalid">
+                            La descripción debe tener al menos 10 caracteres y contener letras.
+                        </Form.Control.Feedback>
                     </Form.Group>
                 </Form>
             </Modal.Body>
@@ -87,7 +118,11 @@ function ModificarProducto({ producto, onGuardar, onCerrar }) {
                 <Button variant="secondary" onClick={onCerrar}>
                     Cancelar
                 </Button>
-                <Button variant="primary" onClick={handleSubmit}>
+                <Button
+                    variant="primary"
+                    onClick={handleSubmit}
+                    disabled={!formularioEsValido}
+                >
                     Guardar Cambios
                 </Button>
             </Modal.Footer>
