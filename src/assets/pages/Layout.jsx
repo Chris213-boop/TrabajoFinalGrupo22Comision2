@@ -1,15 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
-import {
-  Container,
-  NavDropdown,
-  Nav,
-  Navbar,
-  Row,
-  Col,
-  Button,
-  Image,
-  Card,
-} from "react-bootstrap";
+import { Container, NavDropdown, Nav, Navbar, Row, Col, Button, Image, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useAut from "../hooks/useAut";
 import { useState } from "react";

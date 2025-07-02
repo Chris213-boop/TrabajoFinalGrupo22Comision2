@@ -1,4 +1,3 @@
-
 import { Container, Card, Row, Col, Badge, Button, Image } from 'react-bootstrap';
 import { useState } from 'react';
 import ProductCard from './ProductCard';

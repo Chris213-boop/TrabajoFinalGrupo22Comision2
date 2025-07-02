@@ -5,13 +5,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import integrantesData from "../data/integrantesData.json";
 
-function IntegranteCardDisplay({ integrante, delay = 0 }) {
-  const { nombre, email, ciudad, dni, lu, facultad, imagenSrc, altText } =
+function IntegranteCardDisplay({ integrante }) {
+  const { nombre, email, ciudad, dni, githubUrl, facultad, imagenSrc, altText } =
     integrante;
 
   return (
-    <Card className="integrante-card h-100" style={{ "--delay": delay }}>
-      <Image src={imagenSrc} alt={altText} className="integrante-img" />
+    <Card className="integrante-card h-100">
+      <Image src={imagenSrc} alt={altText} className="integrante-img" roundedCircle />
       <Card.Body>
         <Card.Title className="integrante-nombre">{nombre}</Card.Title>
         <ListGroup variant="flush">
@@ -32,7 +32,16 @@ function IntegranteCardDisplay({ integrante, delay = 0 }) {
             <strong>DNI:</strong> {dni}
           </ListGroup.Item>
           <ListGroup.Item>
-            <strong>LU:</strong> {lu || "-"}
+            <strong>GitHub:</strong>
+            <br />
+            <a
+              href={githubUrl}
+              target="_blank" //abre otra pestaña
+              rel="noopener noreferrer"
+              className="text-decoration-none text-primary"
+            >
+              {githubUrl || "-"}
+            </a>
           </ListGroup.Item>
           <ListGroup.Item>
             <strong>Nombre de la Facultad/Escuela a la que pertenece:</strong>
@@ -41,7 +50,6 @@ function IntegranteCardDisplay({ integrante, delay = 0 }) {
           </ListGroup.Item>
         </ListGroup>
       </Card.Body>
-      <Card.Footer />
     </Card>
   );
 }

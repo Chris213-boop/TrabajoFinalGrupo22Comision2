@@ -104,7 +104,7 @@ function FormularioProducto() {
                         required
                     />
                     <Form.Control.Feedback type="invalid">
-                        Debe ingresar al menos 3 letras. No se permiten números.
+                        Debe ingresar al menos 3 caracteres.
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formPrice">
@@ -149,7 +149,7 @@ function FormularioProducto() {
                         isValid={tocado.category && esValido.category}
                         isInvalid={tocado.category && !esValido.category}
                         required>
-                        <option>Categoría: </option>
+                        <option>Selecciona una categoría: </option>
                         <option value="men's clothing">men's clothing</option>
                         <option value="jewelery">jewelery</option>
                         <option value="electronics">electronics</option>

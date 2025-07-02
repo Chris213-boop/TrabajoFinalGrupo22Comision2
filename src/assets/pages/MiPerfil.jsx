@@ -1,6 +1,3 @@
-// src/pages/MiPerfil.jsx
-
-import React from "react";
 import { Container, Row, Col, Card, Image, Badge } from "react-bootstrap";
 import useAut from "../hooks/useAut";
 import { Navigate } from "react-router-dom";
@@ -18,7 +15,6 @@ const MiPerfil = () => {
     <Container className="mt-5">
       <Card className="p-4 shadow-sm">
         <Row className="align-items-center">
-          {/* Columna de la Imagen */}
           <Col md={4} className="text-center">
             <Image
               src={fotoPerfil}

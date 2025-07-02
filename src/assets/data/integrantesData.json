@@ -4,7 +4,7 @@
     "email": "pablot405@gmail.com",
     "ciudad": "Jujuy",
     "dni": "42453996",
-    "lu": "6169",
+    "githubUrl":"",
     "facultad": "Facultad de Ingeniería",
     "imagenSrc": "PabloGabriel.jpg",
     "altText": "Torres, Pablo"
@@ -14,7 +14,7 @@
     "email": "cctorres213@gmail.com",
     "ciudad": "Jujuy",
     "dni": "46472499",
-    "lu": "6168",
+    "githubUrl":"https://github.com/Chris213-boop",
     "facultad": "Facultad de Ingeniería",
     "imagenSrc": "CintiaCristina.jpg",
     "altText": "Torres, Cintia"
@@ -24,7 +24,7 @@
     "email": "P.D.R.C@hotmail.com",
     "ciudad": "Jujuy",
     "dni": "4481598",
-    "lu": "",
+    "githubUrl":"",
     "facultad": "Otras",
     "imagenSrc": "PedroCayo.jpg",
     "altText": "Cayo, Pedro"
@@ -34,7 +34,7 @@
     "email": "luciavargasjujuy@gmail.com",
     "ciudad": "Jujuy",
     "dni": "47439614",
-    "lu": "",
+    "githubUrl":"",
     "facultad": "Escuela de Minas “Dr. Horacio Carrillo”",
     "imagenSrc": "AnaLucia.jpg",
     "altText": "Vargas Soraide, Ana"
@@ -44,7 +44,7 @@
     "email": "maxiantenor000@gmail.com",
     "ciudad": "Jujuy",
     "dni": "43939944",
-    "lu": "",
+    "githubUrl":"",
     "facultad": "Facultad de Ingeniería",
     "imagenSrc": "Maximiliano.jpg",
     "altText": "Antenor, Maximiliano"

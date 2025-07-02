@@ -217,10 +217,12 @@ body {
   --clr-main: #00bcd4;
   --delay: 0s;
 
-  background: #ffffff;
-  border-radius: 16px;
+  background-color: transparent !important;
+  border: none !important;
+  /*border-radius: 16px;*/
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); */
   transform: translateY(20px);
   opacity: 0;
 
@@ -239,13 +241,12 @@ body {
 }
 
 .integrante-img {
-  width: 100%;
+  width: 60%;  
   height: auto;
-  max-height: 225px;
   object-fit: cover;
-  display: block;
-  border-bottom: 4px solid var(--clr-main);
-  aspect-ratio: auto; /* asegura que mantenga su proporción original */
+  object-position: center; 
+  border: 3px solid var(--clr-main);
+  margin: 1rem auto 0 auto;
 }
 
 .integrante-card:hover .integrante-img {
