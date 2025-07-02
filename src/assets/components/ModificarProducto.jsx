@@ -53,17 +53,18 @@ function ModificarProducto({ producto, onGuardar, onCerrar }) {
             <Modal.Body>
                 <Form>
                     <Form.Group className="mb-3">
-                        <Form.Label>Título</Form.Label>
+                        <Form.Label>Nombre del Producto: </Form.Label>
                         <Form.Control
                             type="text"
                             name="title"
                             value={form.title}
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            isValid={tocado.title && esValido.title}
                             isInvalid={tocado.title && !esValido.title}
                         />
                         <Form.Control.Feedback type="invalid">
-                            El título debe tener al menos 3 letras y solo letras.
+                            Debe ingresar al menos 3 caracteres.
                         </Form.Control.Feedback>
                     </Form.Group>
 
@@ -75,6 +76,7 @@ function ModificarProducto({ producto, onGuardar, onCerrar }) {
                             value={form.price}
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            isValid={tocado.price && esValido.price}
                             isInvalid={tocado.price && !esValido.price}
                         />
                         <Form.Control.Feedback type="invalid">
@@ -84,16 +86,22 @@ function ModificarProducto({ producto, onGuardar, onCerrar }) {
 
                     <Form.Group className="mb-3">
                         <Form.Label>Categoría</Form.Label>
-                        <Form.Control
-                            type="text"
+                        <Form.Select
                             name="category"
                             value={form.category}
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            isValid={tocado.category && esValido.category}
                             isInvalid={tocado.category && !esValido.category}
-                        />
+                        >
+                            <option value="">Selecciona una categoría</option>
+                            <option value="men's clothing">men's clothing</option>
+                            <option value="jewelery">jewelery</option>
+                            <option value="electronics">electronics</option>
+                            <option value="women's clothing">women's clothing</option>
+                        </Form.Select>
                         <Form.Control.Feedback type="invalid">
-                            La categoría no puede estar vacía.
+                            Debe seleccionar una categoría válida.
                         </Form.Control.Feedback>
                     </Form.Group>
 
@@ -106,6 +114,7 @@ function ModificarProducto({ producto, onGuardar, onCerrar }) {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             rows={3}
+                            isValid={tocado.description && esValido.description}
                             isInvalid={tocado.description && !esValido.description}
                         />
                         <Form.Control.Feedback type="invalid">

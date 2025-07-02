@@ -18,15 +18,23 @@ function useValidacionFormulario(campos, tipoFormulario) {
     return regex.test(email);
   };
 
+  const esUsernameValido = (username) => {
+    const textoLimpio = username?.trim() || "";
+    return (
+      (esEmailValido(textoLimpio) || soloLetras(textoLimpio)) &&
+      tieneLongitud(textoLimpio, 3)
+    );
+  };
+
   const validarUsuario = () => ({
-    username: esEmailValido(campos.username),
+    username: esUsernameValido(campos.username),
     password: tieneLongitud(campos.password, 3),
   });
 
   const esNumeroValido = (valor) => !isNaN(valor) && Number(valor) > 0;
 
   const validarProducto = () => ({
-    title: tieneLongitud(campos.title, 3) && soloLetras(campos.title),
+    title: tieneLongitud(campos.title, 3),
     price: esNumeroValido(campos.price, 1),
     description:
       tieneLongitud(campos.description, 10) &&
