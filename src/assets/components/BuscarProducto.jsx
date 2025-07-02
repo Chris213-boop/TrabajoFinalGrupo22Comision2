@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Form, Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
 import { useProductos } from '../hooks/useProductos';
 import useAut from '../hooks/useAut';
+import { useNavigate } from 'react-router-dom';
 import DetalleProducto from '../pages/ProductCard';
 import ModificarProducto from "../components/ModificarProducto";
 
@@ -9,6 +10,17 @@ function BuscarProducto() {
   const { productos, favoritoProducto, eliminarProducto, buscarProductos, modificarProducto } = useProductos();
   const [busqueda, setBusqueda] = useState('');
   const { user, isAuthenticated } = useAut();
+
+  const navigate = useNavigate();
+
+  const manejarFavorito = (idProducto) => {
+    if (!isAuthenticated) {
+      alert("Debe iniciar sesión para marcar productos como favoritos.");
+      navigate('/');
+    } else {
+      favoritoProducto(idProducto);
+    }
+  };
 
   // Estados para filtros
   const [buscarPorId, setBuscarPorId] = useState(false);
@@ -18,15 +30,6 @@ function BuscarProducto() {
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
   const [productoAModificar, setProductoAModificar] = useState(null);
-
-  const [productoEditando, setProductoEditando] = useState(null);
-  const [formEdit, setFormEdit] = useState({
-    title: '',
-    price: '',
-    category: '',
-    description: ''
-  });
-
 
   if (productoSeleccionado) {
     return (
@@ -43,23 +46,7 @@ function BuscarProducto() {
     porCategoria: buscarPorCategoria
   });
 
-  const abrirModalEditar = (producto) => {
-    setProductoEditando(producto);
-    setFormEdit({
-      title: producto.title,
-      price: producto.price,
-      category: producto.category,
-      description: producto.description
-    });
-  };
-  const guardarCambios = () => {
-    modificarProducto({
-      ...productoEditando,
-      ...formEdit,
-      price: parseFloat(formEdit.price)
-    });
-    setProductoEditando(null); // cerrado del modal
-  };
+
 
   return (
     <Container className="mt-4">
@@ -133,11 +120,11 @@ function BuscarProducto() {
                     <strong>Precio:</strong> ${producto.price}<br />
 
                     <Button
-                        variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
-                        onClick={() => favoritoProducto(producto.id)}
-                        className="mt-2 me-2"
-                      >
-                        {producto.favorito ? '💔' : '❤️'}
+                      variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
+                      onClick={() => manejarFavorito(producto.id)}
+                      className="mt-2 me-2"
+                    >
+                      {producto.favorito ? '💔' : '❤️'}
                     </Button>
 
                     {/* Solo visible para ADMINISTRADOR */}

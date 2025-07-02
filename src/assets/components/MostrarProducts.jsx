@@ -2,12 +2,25 @@ import { Container, Card, Row, Col, Badge, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import ProductCard from '../pages/ProductCard';
 import { useProductos } from '../hooks/useProductos';
+import useAut from '../hooks/useAut';
+import { useNavigate } from 'react-router-dom';
 
 function MostrarListaProductos() {
     const { productos, favoritoProducto } = useProductos();
+    const { isAuthenticated } = useAut();
     const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+    const navigate = useNavigate();
 
     const productosActivos = productos.filter(producto => producto.estado === "activo");
+
+    const manejarFavorito = (idProducto) => {
+        if (!isAuthenticated) {
+            alert("Debe iniciar sesión para marcar favoritos.");
+            navigate('/');   // Redirige a LoginPage.jsx
+        } else {
+            favoritoProducto(idProducto);
+        }
+    };
 
     if (productoSeleccionado) {
         return (
@@ -51,7 +64,7 @@ function MostrarListaProductos() {
                                         <strong>Precio:</strong> ${producto.price}<br />
                                         <Button
                                             variant={producto.favorito ? 'outline-danger' : 'outline-primary'}
-                                            onClick={() => favoritoProducto(producto.id)}
+                                            onClick={() => manejarFavorito(producto.id)}
                                             className="mt-2 me-2"
                                         >
                                             {producto.favorito ? '💔 Favorito' : '❤️ Favorito'}
