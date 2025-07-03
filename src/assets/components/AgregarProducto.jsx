@@ -23,8 +23,8 @@ function FormularioProducto() {
         description,
         category,
         rating: {
-            rate,
-            count,
+            rate, //descuento
+            count,//contador
         },
     };
 
@@ -80,7 +80,7 @@ function FormularioProducto() {
 
     // Manejador para seleccionar imagen
     const manejarImagen = (e) => {
-        const archivo = e.target.files[0];
+        const archivo = e.target.files[0]; //archivos seleccionados
         if (archivo) {
             setImage(archivo); // guardamos el archivo
             setPreview(URL.createObjectURL(archivo)); // mostramos la imagen
