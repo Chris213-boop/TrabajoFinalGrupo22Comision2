@@ -43,8 +43,8 @@ export function AutProvider({ children }) {
             );
 
             if (usuarioEncontrado) {
-                const { password, ...userWithoutPassword } = usuarioEncontrado; // Quitamos el password
-                setUser(userWithoutPassword);
+                const { password, ...usuarioSinPassword } = usuarioEncontrado; // Quitamos el password
+                setUser(usuarioSinPassword);
                 setIsLoading(false); //desactivar carga aqui
                 return { success: true }; // retorna exito inmediatamente
             } else {
@@ -53,7 +53,7 @@ export function AutProvider({ children }) {
                 return { success: false, message: "Credenciales inválidas. Por favor, verifica tu usuario y contraseña " }
             }
         } catch (error) {
-            console.error("Login failes due to unexpected error: ", error.message);
+            console.error("Error inesperado durante el login: ", error.message);
             setUser(null);
             setIsLoading(false);
             return { success: false, message: "Ocurrio un error inesperado durante el login" }

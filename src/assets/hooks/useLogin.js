@@ -20,7 +20,7 @@ function useLogin() {
                 console.log("Redirigiendo a /home"); //verifica que el rol es "ADMINISTRATIVO"
                 navigate('/home', { replace: true });
             } else if (user?.rol === 'CLIENTE') { //verifica que el rol es "CLIENTE"
-                console.log("Redirigiendo a /nosotros");
+                console.log("Redirigiendo a /home");
                 navigate('/home', { replace: true });
             } else {
                 console.log("Rol desconocido, redirigiendo a /error"); //muestra este mensaje en otro caso
