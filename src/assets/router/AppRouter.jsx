@@ -8,7 +8,6 @@ import LoginPage from "../pages/LoginPage";
 import Favoritos from "../pages/Favoritos";
 import BuscarProducto from "../components/BuscarProducto";
 import ProductosEliminados from "../pages/ProductosEliminados";
-import ProductosFavoritos from "../pages/ProductosFavoritos";
 import MostrarListaProductos from "../components/MostrarProducts";
 import ProtectorRutas from "../components/ProtectorRutas";
 import FormularioProducto from "../components/AgregarProducto";
@@ -22,24 +21,22 @@ function Rutas() {
     <Container fluid>
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/* <Route index element={<Home />} /> */}
           <Route index element={<LoginPage />} />
           <Route path="home" element={<Home />} />
-          <Route path="/productos" element={<MostrarListaProductos />} />
-          <Route path="/nosotros" element={<Nosotros />} />
-          <Route path="/favoritos" element={<Favoritos />} />
+          <Route path="productos" element={<MostrarListaProductos />} />
+          <Route path="nosotros" element={<Nosotros />} />
+          <Route path="favoritos" element={<Favoritos />} />
           <Route
-            path="/eliminados"
+            path="eliminados"
             element={
               <ProtectorRutas rolesPermitidos={["ADMINISTRATIVO"]}>
                 <ProductosEliminados />
               </ProtectorRutas>
             }
           />
-          <Route path="/prodFav" element={<ProductosFavoritos />} />
-          <Route path="/buscar" element={<BuscarProducto />} />
+          <Route path="buscar" element={<BuscarProducto />} />
           <Route
-            path="/agregar"
+            path="agregar"
             element={
               <ProtectorRutas rolesPermitidos={["ADMINISTRATIVO"]}>
                 <FormularioProducto />
@@ -47,7 +44,7 @@ function Rutas() {
             }
           />
           <Route
-            path="/admin/suscripciones"
+            path="admin/suscripciones"
             element={
               <ProtectorRutas rolesPermitidos={["ADMINISTRATIVO"]}>
                 <VistaSuscripciones />
@@ -55,15 +52,15 @@ function Rutas() {
             }
           />
           <Route
-            path="/perfil"
+            path="perfil"
             element={
               <ProtectorRutas rolesPermitidos={["ADMINISTRATIVO", "CLIENTE"]}>
                 <MiPerfil />
               </ProtectorRutas>
             }
           />
-          <Route path="/no-autorizado" element={<NoAutorizado />} />
-          <Route path="/registro" element={<Registro />} />
+          <Route path="no-autorizado" element={<NoAutorizado />} />
+          <Route path="registro" element={<Registro />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>
