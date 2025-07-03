@@ -40,7 +40,9 @@ function BuscarProducto() {
     );
   }
 
-  const filtrarProductosResultado = buscarProductos(productos, busqueda, {
+  const productosActivos = productos.filter(producto => producto.estado === "activo");
+
+  const filtrarProductosResultado = buscarProductos(productosActivos, busqueda, {
     porId: buscarPorId,
     porNombre: buscarPorNombre,
     porCategoria: buscarPorCategoria
@@ -131,7 +133,12 @@ function BuscarProducto() {
                     {isAuthenticated && user?.rol === "ADMINISTRATIVO" && (
                       <Button
                         variant={producto.estado === 'activo' ? 'danger' : 'success'}
-                        onClick={() => eliminarProducto(producto.id)}
+                        onClick={() => {
+                          const confirmado = window.confirm(`¿Estás seguro de que querés eliminar el producto "${producto.title}"?`);
+                          if (confirmado) {
+                            eliminarProducto(producto.id);
+                          }
+                        }}
                         className="mt-2 me-2"
                       >
                         {producto.estado === 'activo' ? 'Eliminar' : 'Reactivar'}

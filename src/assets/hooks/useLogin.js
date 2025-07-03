@@ -29,7 +29,7 @@ function useLogin() {
         }
     }, [isAuthenticated, user, navigate]);
 
-    const Enviar = async (e) => {
+    const Enviar = (e) => {
         e.preventDefault();
         console.log("Formulario enviado"); // verifica que el formulario se envio
         setLoginError(''); //Limpiar errores anteriores
@@ -39,7 +39,7 @@ function useLogin() {
             return;
         }
 
-        const result = await login({ username, password });
+        const result = login({ username, password });
         console.log("Resultado login:", result);
 
         if (!result.success) {

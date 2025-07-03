@@ -5,7 +5,6 @@ export const AutContext = createContext(null);
 
 export function AutProvider({ children }) {
 
-    const initialUser = JSON.parse(localStorage.getItem("user"));
     // Estado inicial del usuario logueado
     const [user, setUser] = useState(() => {
         const storedUser = localStorage.getItem("user");

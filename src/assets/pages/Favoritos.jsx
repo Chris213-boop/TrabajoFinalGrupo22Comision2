@@ -1,7 +1,7 @@
 // Página de Favoritos:
 // Mostrar únicamente los productos que el usuario ha marcado como favoritos.
 import { useProductos } from "../hooks/useProductos";
-import { Container, Row, Col, Card, Badge, Button, Spinner, Alert } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Spinner, Alert, Image} from "react-bootstrap";
 import { useState } from 'react';
 import ProductCard from "../pages/ProductCard"
 
@@ -20,7 +20,7 @@ function Favoritos() {
     }
 
     // Filtrar productos que están marcados como favoritos
-    const favoritos = productos.filter(producto => producto.favorito);
+    const favoritos = productos.filter(producto => producto.favorito && producto.estado === "activo");
 
     if (isLoading) {
         return <div className="text-center mt-5"><Spinner animation="border" /> Cargando productos...</div>;
@@ -32,9 +32,11 @@ function Favoritos() {
 
     return (
         <Container className="mt-4">
-            <h2 className="text-center mb-4">⭐ Tus Productos Favoritos</h2>
+            <h2 className="text-center mb-4">❤️ Productos Favoritos ⭐</h2>
             {favoritos.length === 0 ? (
-                <p className="text-muted text-center">No hay productos marcados como favoritos.</p>
+                <div>
+                    <Image src= 'StitchFavoritos.png' alt="No hay productos Favoritos" className="w-50 mx-auto d-block"/>
+                </div>
             ) : (
                 <Row xs={1} md={2} lg={3} className="g-4">
                     {favoritos.map(producto => (
